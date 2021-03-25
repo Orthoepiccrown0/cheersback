@@ -1,6 +1,8 @@
 package com.cheers.main.model.events;
 
-import com.cheers.main.model.account.Account;
+import com.cheers.main.model.account.Accounts;
+import com.cheers.main.model.account.Company;
+import com.cheers.main.model.account.User;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -42,5 +44,8 @@ public class Event {
     private List<Tag> tags;
 
     @OneToOne
-    private Account creator;
+    private User privateCreator;
+
+    @OneToOne
+    private Company commercialCreator;
 }
