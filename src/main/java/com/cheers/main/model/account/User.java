@@ -1,6 +1,6 @@
 package com.cheers.main.model.account;
 
-import com.cheers.main.model.enums.Sex;
+import com.cheers.main.model.enums.Gender;
 
 import javax.persistence.Entity;
 import java.util.Date;
@@ -12,7 +12,7 @@ public class User extends Accounts {
 
     private Date birthday;
 
-    private Sex sex;
+    private Gender gender;
 
     public String getSurname() {
         return surname;
@@ -30,11 +30,11 @@ public class User extends Accounts {
         this.birthday = birthday;
     }
 
-    public Sex getSex() {
-        return sex;
+    public Gender getSex() {
+        return gender;
     }
 
-    public void setSex(Sex sex) {
-        this.sex = sex;
+    public void setSex(Gender gender) {
+        this.gender = gender;
     }
 }

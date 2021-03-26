@@ -7,6 +7,7 @@ import com.cheers.main.model.events.Event;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -17,4 +18,8 @@ public interface EventRepository extends JpaRepository<Event, String> {
     List<Event> findAllByPrivateCreator(User user);
 
     List<Event> findAllByCommercialCreator(Company company);
+
+    List<Event> findAllByEventDay(Date eventDay);
+
+    List<Event> findAllByStartSubscriptionLessThanEqualAndEventDayGreaterThanEqual(Date start, Date end);
 }

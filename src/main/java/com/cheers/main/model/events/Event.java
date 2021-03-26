@@ -23,9 +23,9 @@ public class Event {
 
     private String img;
 
-    private Date start;
+    private Date startSubscription;
 
-    private Date end;
+    private Date eventDay;
 
     private Integer guests;
 

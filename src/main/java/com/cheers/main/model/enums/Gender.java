@@ -1,6 +1,6 @@
 package com.cheers.main.model.enums;
 
-public enum Sex {
+public enum Gender {
 
     Male,
     Female,

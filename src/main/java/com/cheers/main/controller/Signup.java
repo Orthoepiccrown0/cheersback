@@ -3,10 +3,9 @@ package com.cheers.main.controller;
 
 import com.cheers.main.model.account.Company;
 import com.cheers.main.model.account.User;
-import com.cheers.main.model.enums.Sex;
+import com.cheers.main.model.enums.Gender;
 import com.cheers.main.utils.DBManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,7 +39,7 @@ public class Signup {
         user.setEmail(email);
         user.setPassword(password);
         user.setBirthday(new SimpleDateFormat("dd/MM/yyyy").parse(birthday)); //format: dd/MM/yyyy
-        user.setSex(Sex.valueOf(sex));
+        user.setSex(Gender.valueOf(sex));
         if (avatar != null)
             user.setAvatar(avatar);
 

@@ -1,13 +1,12 @@
 package com.cheers.main.utils;
 
 import com.cheers.main.model.account.User;
-import com.cheers.main.model.enums.Sex;
+import com.cheers.main.model.enums.Gender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 @Component
@@ -33,7 +32,7 @@ public class DataInit implements CommandLineRunner {
         user.setName("Diego");
         user.setSurname("Concetti");
         user.setEmail("diegoco@gmail.com");
-        user.setSex(Sex.Male);
+        user.setSex(Gender.Male);
         user.setPassword("password");
         user.setBirthday(new Date());
         user.setAvatar("avatar");
