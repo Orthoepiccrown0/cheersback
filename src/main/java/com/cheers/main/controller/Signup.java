@@ -29,7 +29,7 @@ public class Signup {
                        @RequestParam String surname,
                        @RequestParam String birthday,
                        @RequestParam String email,
-                       @RequestParam String sex,
+                       @RequestParam String gender,
                        @RequestParam String password,
                        String avatar) throws ParseException {
         User user = new User();
@@ -39,7 +39,7 @@ public class Signup {
         user.setEmail(email);
         user.setPassword(password);
         user.setBirthday(new SimpleDateFormat("dd/MM/yyyy").parse(birthday)); //format: dd/MM/yyyy
-        user.setSex(Gender.valueOf(sex));
+        user.setGender(Gender.valueOf(gender));
         if (avatar != null)
             user.setAvatar(avatar);
 

@@ -32,7 +32,7 @@ public class DataInit implements CommandLineRunner {
         user.setName("Diego");
         user.setSurname("Concetti");
         user.setEmail("diegoco@gmail.com");
-        user.setSex(Gender.Male);
+        user.setGender(Gender.Male);
         user.setPassword("password");
         user.setBirthday(new Date());
         user.setAvatar("avatar");

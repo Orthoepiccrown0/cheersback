@@ -1,11 +1,10 @@
 package com.cheers.main.model.account;
 
-import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public class Accounts {
+public class Account {
 
     @Id
     private String id;

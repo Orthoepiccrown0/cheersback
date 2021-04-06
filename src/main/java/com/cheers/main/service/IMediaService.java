@@ -6,6 +6,6 @@ import java.io.File;
 
 public interface IMediaService {
 
-    Media saveFile(File file);
+    Media saveFile(Media file);
 
 }

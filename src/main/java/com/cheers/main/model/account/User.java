@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import java.util.Date;
 
 @Entity
-public class User extends Accounts {
+public class User extends Account {
 
     private String surname;
 
@@ -34,7 +34,7 @@ public class User extends Accounts {
         return gender;
     }
 
-    public void setSex(Gender gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 }

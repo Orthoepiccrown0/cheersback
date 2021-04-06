@@ -57,7 +57,7 @@ public class EventsService implements IEventsService {
 
     @Override
     public void createNewEvent(Event event) {
-        dbManager.getEventsService().createNewEvent(event);
+        eventRepository.save(event);
     }
 
     @Override
