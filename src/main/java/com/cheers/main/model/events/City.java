@@ -16,4 +16,15 @@ public class City {
 
     private String CAP;
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCAP(String CAP) {
+        this.CAP = CAP;
+    }
 }

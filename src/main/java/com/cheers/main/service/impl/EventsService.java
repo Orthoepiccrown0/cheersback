@@ -56,6 +56,11 @@ public class EventsService implements IEventsService {
     }
 
     @Override
+    public List<Event> getEventsByTitle(String title) {
+        return eventRepository.findAllByTitleStartsWith(title);
+    }
+
+    @Override
     public void createNewEvent(Event event) {
         eventRepository.save(event);
     }
@@ -73,5 +78,10 @@ public class EventsService implements IEventsService {
     @Override
     public void unsubscribeFromEvent(Event event, User user) {
 
+    }
+
+
+    public List<Event> getAllEvents(){
+        return eventRepository.findAll();
     }
 }

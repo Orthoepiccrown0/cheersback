@@ -15,6 +15,8 @@ public interface IEventsService {
 
     List<Event> getEventsByDate(Date date);
 
+    List<Event> getEventsByTitle(String title);
+
     void createNewEvent(Event event);
 
     void deleteEvent(Event event);

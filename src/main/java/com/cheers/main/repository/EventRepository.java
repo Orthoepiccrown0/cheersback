@@ -22,4 +22,8 @@ public interface EventRepository extends JpaRepository<Event, String> {
     List<Event> findAllByEventDay(Date eventDay);
 
     List<Event> findAllByStartSubscriptionLessThanEqualAndEventDayGreaterThanEqual(Date start, Date end);
+
+    List<Event> findAllByTitleStartsWith(String title);
+
+
 }
