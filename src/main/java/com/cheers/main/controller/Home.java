@@ -1,9 +1,11 @@
 package com.cheers.main.controller;
 
+import com.cheers.main.model.account.User;
 import com.cheers.main.model.events.Event;
 import com.cheers.main.utils.DBManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,6 +32,7 @@ public class Home {
         return dbManager.getEventsService().getEventsByTitle(title);
     }
 
+    @GetMapping("event/test")
     private List<Event> getAllEvents() {
         return dbManager.getEventsService().getAllEvents();
     }
@@ -80,5 +83,31 @@ public class Home {
             }
         }
         return futureEvents;
+    }
+
+    @PostMapping("event/subscribe")
+    private Event subscribeToEvent(@RequestParam String eventId,
+                                   @RequestParam String userId) {
+
+        Event event = dbManager.getEventsService().findEventById(eventId);
+        User user = dbManager.getLoginService().findUserById(userId);
+
+        if (!event.getSubscribers().contains(user)) {
+            dbManager.getEventsService().subscribeToEvent(event, user);
+        }
+        return event;
+    }
+
+    @PostMapping("event/unsubscribe")
+    private void unsubscribeFromEvent(@RequestParam String eventId,
+                                    @RequestParam String userId) {
+
+        Event event = dbManager.getEventsService().findEventById(eventId);
+        User user = dbManager.getLoginService().findUserById(userId);
+
+        if (event.getSubscribers().contains(user)) {
+            dbManager.getEventsService().unsubscribeFromEvent(event, user);
+        }
+        //return event;
     }
 }

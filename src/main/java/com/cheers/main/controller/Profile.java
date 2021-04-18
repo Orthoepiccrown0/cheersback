@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 public class Profile {
     private DBManager dbManager;

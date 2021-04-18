@@ -58,6 +58,9 @@ public class Event {
     @OneToMany
     private List<Tag> tags;
 
+    @OneToMany
+    private List<User> subscribers;
+
     @OneToOne
     private User privateCreator;
 
@@ -206,5 +209,13 @@ public class Event {
 
     public void setCommercialCreator(Company commercialCreator) {
         this.commercialCreator = commercialCreator;
+    }
+
+    public List<User> getSubscribers() {
+        return subscribers;
+    }
+
+    public void setSubscribers(List<User> subscribers) {
+        this.subscribers = subscribers;
     }
 }

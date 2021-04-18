@@ -3,7 +3,9 @@ package com.cheers.main.service.impl;
 import com.cheers.main.model.account.User;
 import com.cheers.main.model.events.City;
 import com.cheers.main.model.events.Event;
+import com.cheers.main.model.events.Tag;
 import com.cheers.main.repository.EventRepository;
+import com.cheers.main.repository.TagRepository;
 import com.cheers.main.service.IEventsService;
 import com.cheers.main.utils.DBManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,8 @@ public class EventsService implements IEventsService {
 
     private EventRepository eventRepository;
 
+    private TagRepository tagRepository;
+
     @Autowired
     public void setDbManager(DBManager dbManager) {
         this.dbManager = dbManager;
@@ -28,6 +32,11 @@ public class EventsService implements IEventsService {
     @Autowired
     public void setEventRepository(EventRepository eventRepository) {
         this.eventRepository = eventRepository;
+    }
+
+    @Autowired
+    public void setTagRepository(TagRepository tagRepository) {
+        this.tagRepository = tagRepository;
     }
 
     @Override
@@ -61,6 +70,11 @@ public class EventsService implements IEventsService {
     }
 
     @Override
+    public Event findEventById(String id) {
+        return eventRepository.findById(id).orElseThrow();
+    }
+
+    @Override
     public void createNewEvent(Event event) {
         eventRepository.save(event);
     }
@@ -72,16 +86,26 @@ public class EventsService implements IEventsService {
 
     @Override
     public void subscribeToEvent(Event event, User user) {
-
+        event.getSubscribers().add(user);
+        event.setGuests(event.getGuests() + 1);
+        eventRepository.save(event);
     }
 
     @Override
     public void unsubscribeFromEvent(Event event, User user) {
-
+        event.getSubscribers().remove(user);
+        event.setGuests(event.getGuests() - 1);
+        eventRepository.save(event);
     }
 
 
-    public List<Event> getAllEvents(){
+    public List<Event> getAllEvents() {
         return eventRepository.findAll();
     }
+
+    public void saveTag(Tag tag) {
+        tagRepository.save(tag);
+    }
+
+
 }

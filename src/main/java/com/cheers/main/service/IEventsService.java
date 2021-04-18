@@ -24,4 +24,6 @@ public interface IEventsService {
     void subscribeToEvent(Event event, User user);
 
     void unsubscribeFromEvent(Event event, User user);
+
+    Event findEventById(String id);
 }
