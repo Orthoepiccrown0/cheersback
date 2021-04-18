@@ -1,11 +1,13 @@
 package com.cheers.main.controller;
 
 
+import com.cheers.main.model.Media;
 import com.cheers.main.model.account.Company;
 import com.cheers.main.model.account.User;
 import com.cheers.main.model.enums.Gender;
 import com.cheers.main.utils.DBManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,8 +33,9 @@ public class Signup {
                        @RequestParam String email,
                        @RequestParam String gender,
                        @RequestParam String password,
-                       String avatar) throws ParseException {
+                       @RequestParam(required = false) Media avatar) throws ParseException {
         User user = new User();
+        user.setBio("");
         user.setId(UUID.randomUUID().toString());
         user.setName(name);
         user.setSurname(surname);
@@ -52,8 +55,9 @@ public class Signup {
                                     @RequestParam String email,
                                     @RequestParam String pIva,
                                     @RequestParam String password,
-                                    String avatar) throws ParseException {
+                                    Media avatar) throws ParseException {
         Company company = new Company();
+        company.setBio("");
         company.setId(UUID.randomUUID().toString());
         company.setName(name);
         company.setEmail(email);

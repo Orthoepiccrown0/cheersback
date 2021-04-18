@@ -1,7 +1,10 @@
 package com.cheers.main.model.account;
 
+import com.cheers.main.model.Media;
+
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToOne;
 
 @MappedSuperclass
 public class Account {
@@ -15,7 +18,18 @@ public class Account {
 
     private String password;
 
-    private String avatar;
+    @OneToOne
+    private Media avatar;
+
+    private String bio;
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
 
     public String getId() {
         return id;
@@ -49,11 +63,11 @@ public class Account {
         this.password = password;
     }
 
-    public String getAvatar() {
+    public Media getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(String avatar) {
+    public void setAvatar(Media avatar) {
         this.avatar = avatar;
     }
 }

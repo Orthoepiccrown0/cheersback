@@ -61,7 +61,7 @@ public class DataInit implements CommandLineRunner {
         user.setGender(Gender.Male);
         user.setPassword("password");
         user.setBirthday(new Date());
-        user.setAvatar("avatar");
+        user.setAvatar(null);
         dbManager.getLoginService().saveUser(user);
     }
 }
