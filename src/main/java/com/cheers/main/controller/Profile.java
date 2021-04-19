@@ -82,4 +82,11 @@ public class Profile {
         return dbManager.getEventsService().getEventsByCreatorId(id);
     }
 
+    @GetMapping("event/get/user/subscribed")
+    public List<Event> getSubscribedEvents(@RequestParam String id){
+        User user = dbManager.getLoginService().findUserById(id);
+        return user.getSubscribedEvents();
+    }
+
+
 }

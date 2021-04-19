@@ -94,13 +94,14 @@ public class Home {
 
         if (!event.getSubscribers().contains(user)) {
             dbManager.getEventsService().subscribeToEvent(event, user);
+            dbManager.getLoginService().subscribeToEvent(user, event);
         }
         return event;
     }
 
     @PostMapping("event/unsubscribe")
     private void unsubscribeFromEvent(@RequestParam String eventId,
-                                    @RequestParam String userId) {
+                                      @RequestParam String userId) {
 
         Event event = dbManager.getEventsService().findEventById(eventId);
         User user = dbManager.getLoginService().findUserById(userId);

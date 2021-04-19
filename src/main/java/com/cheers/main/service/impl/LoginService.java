@@ -2,6 +2,7 @@ package com.cheers.main.service.impl;
 
 import com.cheers.main.model.account.Company;
 import com.cheers.main.model.account.User;
+import com.cheers.main.model.events.Event;
 import com.cheers.main.repository.CompanyRepository;
 import com.cheers.main.repository.UserRepository;
 import com.cheers.main.service.ILoginService;
@@ -62,7 +63,13 @@ public class LoginService implements ILoginService {
 
     @Override
     public Company findCompanyByEmailAndPassword(String email, String password) {
-        return companyRepository.findByEmailAndPassword(email,password).orElse(null);
+        return companyRepository.findByEmailAndPassword(email, password).orElse(null);
+    }
+
+    @Override
+    public void subscribeToEvent(User user, Event event) {
+        user.getSubscribedEvents().add(event);
+        userRepository.save(user);
     }
 
     @Override

@@ -1,9 +1,12 @@
 package com.cheers.main.model.account;
 
 import com.cheers.main.model.enums.Gender;
+import com.cheers.main.model.events.Event;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class User extends Account {
@@ -13,6 +16,17 @@ public class User extends Account {
     private Date birthday;
 
     private Gender gender;
+
+    @OneToMany
+    private List<Event> subscribedEvents;
+
+    public List<Event> getSubscribedEvents() {
+        return subscribedEvents;
+    }
+
+    public void setSubscribedEvents(List<Event> subscribedEvents) {
+        this.subscribedEvents = subscribedEvents;
+    }
 
     public Gender getGender() {
         return gender;

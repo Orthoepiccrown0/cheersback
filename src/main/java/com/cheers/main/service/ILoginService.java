@@ -2,6 +2,7 @@ package com.cheers.main.service;
 
 import com.cheers.main.model.account.Company;
 import com.cheers.main.model.account.User;
+import com.cheers.main.model.events.Event;
 
 import java.util.List;
 
@@ -21,6 +22,8 @@ public interface ILoginService {
     User findUserByEmailAndPassword(String email, String password);
 
     Company findCompanyByEmailAndPassword(String email, String password);
+
+    void subscribeToEvent(User user, Event event);
 
     void deleteUser(String id);
 
