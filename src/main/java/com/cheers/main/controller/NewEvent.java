@@ -21,7 +21,7 @@ public class NewEvent {
         this.dbManager = dbManager;
     }
 
-    @PostMapping
+    @PostMapping("event/new")
     public String registerNewEvent(String title,
                                    String description,
                                    Date startDate,

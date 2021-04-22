@@ -47,8 +47,8 @@ public class DataInit implements CommandLineRunner {
         event.setCommercialCreator(null);
         event.setPrivateCreator(user);
         event.setAddress("via milano");
-        event.setLat("32");
-        event.setLon("dsa");
+        event.setLat("43.144959");
+        event.setLon("13.067307");
 
         ArrayList<User> userList = new ArrayList<>();
         userList.add(user);
@@ -108,8 +108,8 @@ public class DataInit implements CommandLineRunner {
         event.setCommercialCreator(null);
         event.setPrivateCreator(user);
         event.setAddress("via milano");
-        event.setLat("32");
-        event.setLon("dsa");
+        event.setLat("43.145266");
+        event.setLon("13.098231");
 
         dbManager.getEventsService().createNewEvent(event);
     }
