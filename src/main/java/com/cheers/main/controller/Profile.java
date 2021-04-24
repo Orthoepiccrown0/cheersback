@@ -83,9 +83,15 @@ public class Profile {
     }
 
     @GetMapping("event/get/user/subscribed")
-    public List<Event> getSubscribedEvents(@RequestParam String id){
+    public List<Event> getSubscribedEvents(@RequestParam String id) {
         User user = dbManager.getLoginService().findUserById(id);
-        return user.getSubscribedEvents();
+        List<Event> events = dbManager.getEventsService().getAllEvents();
+        List<Event> userSubscriptions = new ArrayList<>();
+        for (Event event : events) {
+            if (event.getSubscribers().contains(user))
+                userSubscriptions.add(event);
+        }
+        return userSubscriptions;
     }
 
 

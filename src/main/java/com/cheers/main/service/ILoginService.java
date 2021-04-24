@@ -23,8 +23,6 @@ public interface ILoginService {
 
     Company findCompanyByEmailAndPassword(String email, String password);
 
-    void subscribeToEvent(User user, Event event);
-
     void deleteUser(String id);
 
     void deleteCompany(String id);

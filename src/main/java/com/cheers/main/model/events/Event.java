@@ -58,7 +58,7 @@ public class Event {
     @OneToMany
     private List<Tag> tags;
 
-    @OneToMany
+    @ManyToMany
     private List<User> subscribers;
 
     @OneToOne

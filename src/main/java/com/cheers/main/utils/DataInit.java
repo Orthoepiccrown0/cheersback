@@ -8,9 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.UUID;
+import java.lang.reflect.Array;
+import java.util.*;
 
 @Component
 public class DataInit implements CommandLineRunner {
@@ -25,76 +24,38 @@ public class DataInit implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         if (dbManager.getLoginService().getAll().size() == 0) {
-            saveUsers();
+            createTestUnits();
 
         }
     }
 
-    private void createEvents(User user, ArrayList<Tag> tagList) {
-        Event event = new Event();
-        event.setId(UUID.randomUUID().toString());
-        event.setDescription("descri");
-        event.setEventDay(new Date());
-        event.setGuests(1);
-        event.setMedia(null);
-        event.setMaxGuests(10);
-        event.setMinGuests(0);
-        event.setPromoted(false);
-        event.setStartSubscription(new Date());
-        event.setTitle("festa");
-        event.setViews(233);
-        event.setCity(null);
-        event.setCommercialCreator(null);
-        event.setPrivateCreator(user);
-        event.setAddress("via milano");
-        event.setLat("43.144959");
-        event.setLon("13.067307");
+    private void createTestUnits() {
+        User user = createUser("diego", "concetti");
+        User user2 = createUser("bibbo", "falso");
 
-        ArrayList<User> userList = new ArrayList<>();
-        userList.add(user);
-        event.setSubscribers(userList);
-        event.setTags(tagList);
 
-        createEvent(user,tagList);
-        dbManager.getEventsService().createNewEvent(event);
+        createEvent(user, "Titolo dell'evento", "descrizione");
+        createEvent(user2, "Evento di " + user2.getName(), "descrizione 2");
     }
 
-    private void saveUsers() {
-        User user = createUser();
-        ArrayList<Tag> tagList = new ArrayList<>();
-        Tag t = new Tag();
-        t.setId(Long.parseLong("1"));
-        t.setName("Tag1");
-        Tag t2 = new Tag();
-        t2.setId(Long.parseLong("2"));
-        t2.setName("Tag2");
-        tagList.add(t);
-        tagList.add(t2);
-
-        dbManager.getEventsService().saveTag(t);
-        dbManager.getEventsService().saveTag(t2);
-
-        dbManager.getLoginService().saveUser(user);
-        createEvents(user, tagList);
-    }
-
-    private User createUser() {
+    private User createUser(String name, String surname) {
         User user = new User();
         user.setId(UUID.randomUUID().toString());
-        user.setName("Diego");
-        user.setSurname("Concetti");
+        user.setName(name);
+        user.setSurname(surname);
         user.setEmail("d@gmail.com");
         user.setGender(Gender.Male);
         user.setPassword("123");
         user.setBirthday(new Date());
         user.setAvatar(null);
+        dbManager.getLoginService().saveUser(user);
         return user;
     }
 
-    private void createEvent(User user, ArrayList<Tag> tagList){
+    private Event createEvent(User user, String title, String description) {
         Event event = new Event();
         event.setId(UUID.randomUUID().toString());
-        event.setDescription("descridsadasdsadasdsadsa");
+        event.setDescription(description);
         event.setEventDay(new Date());
         event.setGuests(2);
         event.setMedia(null);
@@ -102,7 +63,7 @@ public class DataInit implements CommandLineRunner {
         event.setMinGuests(0);
         event.setPromoted(false);
         event.setStartSubscription(new Date());
-        event.setTitle("festa2");
+        event.setTitle(title);
         event.setViews(233);
         event.setCity(null);
         event.setCommercialCreator(null);
@@ -111,7 +72,13 @@ public class DataInit implements CommandLineRunner {
         event.setLat("43.145266");
         event.setLon("13.098231");
 
+        Tag tag = new Tag();
+        tag.setName("tag");
+        dbManager.getEventsService().saveTag(tag);
+
+        event.setTags(Collections.singletonList(tag));
         dbManager.getEventsService().createNewEvent(event);
+        return event;
     }
 
 }

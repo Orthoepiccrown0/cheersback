@@ -67,12 +67,6 @@ public class LoginService implements ILoginService {
     }
 
     @Override
-    public void subscribeToEvent(User user, Event event) {
-        user.getSubscribedEvents().add(event);
-        userRepository.save(user);
-    }
-
-    @Override
     public void deleteUser(String id) {
         userRepository.delete(findUserById(id));
     }
