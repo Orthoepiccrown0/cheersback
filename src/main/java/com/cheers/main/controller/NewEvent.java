@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
@@ -24,25 +27,27 @@ public class NewEvent {
     @PostMapping("event/new")
     public String registerNewEvent(String title,
                                    String description,
-                                   Date startDate,
-                                   Date eventDate,
+                                   String startDate,
+                                   String eventDate,
                                    Integer maxSubscribers,
                                    String lat,
                                    String lon,
                                    String address,
                                    String userid
-    ) {
+    ) throws ParseException {
         Company commercialCreator = dbManager.getLoginService().findCompanyById(userid);
         User privateCreator = dbManager.getLoginService().findUserById(userid);
 
         //TODO: tags stuff and city parsing
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
         Event event = new Event();
         event.setId(UUID.randomUUID().toString());
         event.setTitle(title);
         event.setDescription(description);
-        event.setStartSubscription(startDate);
-        event.setEventDay(eventDate);
+        event.setStartSubscription(dateFormat.parse(startDate));
+        event.setEventDay(dateFormat.parse(eventDate));
         event.setMaxGuests(maxSubscribers);
         event.setLat(lat);
         event.setLon(lon);
@@ -54,7 +59,7 @@ public class NewEvent {
             event.setPrivateCreator(privateCreator);
 
         dbManager.getEventsService().createNewEvent(event);
-        return "";
+        return "ok";
     }
 
 }

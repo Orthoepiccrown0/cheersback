@@ -1,5 +1,6 @@
 package com.cheers.main.controller;
 
+import com.cheers.main.container.LoginResponse;
 import com.cheers.main.model.Media;
 import com.cheers.main.model.account.Account;
 import com.cheers.main.model.account.Company;
@@ -34,6 +35,17 @@ public class Profile {
     @GetMapping("company/get")
     public Company getCompany(String id) {
         return dbManager.getLoginService().findCompanyById(id);
+    }
+
+    @GetMapping("account/get")
+    public LoginResponse getAccount(String id) {
+        User user = dbManager.getLoginService().findUserById(id);
+        Company company = dbManager.getLoginService().findCompanyById(id);
+        if (user != null)
+            return new LoginResponse(user);
+        if (company != null)
+            return new LoginResponse(company);
+        return null;
     }
 
     @PostMapping("user/profile/edit")
@@ -79,6 +91,8 @@ public class Profile {
 
     @GetMapping("event/get/user")
     public List<Event> getEventsByUser(@RequestParam String id) {
+        User user = dbManager.getLoginService().findUserById(id);
+
         return dbManager.getEventsService().getEventsByCreatorId(id);
     }
 
