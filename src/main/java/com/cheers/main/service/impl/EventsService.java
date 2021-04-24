@@ -1,5 +1,6 @@
 package com.cheers.main.service.impl;
 
+import com.cheers.main.model.account.Company;
 import com.cheers.main.model.account.User;
 import com.cheers.main.model.events.City;
 import com.cheers.main.model.events.Event;
@@ -46,10 +47,11 @@ public class EventsService implements IEventsService {
 
     @Override
     public List<Event> getEventsByCreatorId(String id) {
-        List<Event> userEvents = eventRepository.findAllByPrivateCreator(
-                dbManager.getLoginService().findUserById(id));
-        List<Event> commercialEvents = eventRepository.findAllByCommercialCreator(
-                dbManager.getLoginService().findCompanyById(id));
+        User user = dbManager.getLoginService().findUserById(id);
+        Company company = dbManager.getLoginService().findCompanyById(id);
+
+        List<Event> userEvents = eventRepository.findAllByPrivateCreatorIsNotNullAndPrivateCreator(user);
+        List<Event> commercialEvents = eventRepository.findAllByCommercialCreatorIsNotNullAndCommercialCreator(company);
         if (userEvents.isEmpty() && commercialEvents.isEmpty())
             return new ArrayList<>();
 
@@ -67,6 +69,11 @@ public class EventsService implements IEventsService {
     @Override
     public List<Event> getEventsByTitle(String title) {
         return eventRepository.findAllByTitleStartsWith(title);
+    }
+
+    @Override
+    public List<Event> getSubscribedEvents(User user) {
+        return eventRepository.findAllBySubscribers(user);
     }
 
     @Override

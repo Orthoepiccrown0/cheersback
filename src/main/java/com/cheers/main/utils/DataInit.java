@@ -56,7 +56,7 @@ public class DataInit implements CommandLineRunner {
         event.setTags(tagList);
 
         createEvent(user,tagList);
-        dbManager.getEventsService().createNewEvent(event);
+       // dbManager.getEventsService().createNewEvent(event);
     }
 
     private void saveUsers() {

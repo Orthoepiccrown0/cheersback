@@ -17,6 +17,8 @@ public interface IEventsService {
 
     List<Event> getEventsByTitle(String title);
 
+    List<Event> getSubscribedEvents(User user);
+
     void createNewEvent(Event event);
 
     void deleteEvent(Event event);

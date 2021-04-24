@@ -160,7 +160,6 @@ public class Home {
 
         if (!event.getSubscribers().contains(user)) {
             dbManager.getEventsService().subscribeToEvent(event, user);
-            dbManager.getLoginService().subscribeToEvent(user, event);
         }
         return event;
     }
@@ -215,6 +214,7 @@ public class Home {
         double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
                 + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
                 * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
+
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         double distance = R * c * 1000; // convert to meters
 

@@ -17,17 +17,6 @@ public class User extends Account {
 
     private Gender gender;
 
-    @OneToMany
-    private List<Event> subscribedEvents;
-
-    public List<Event> getSubscribedEvents() {
-        return subscribedEvents;
-    }
-
-    public void setSubscribedEvents(List<Event> subscribedEvents) {
-        this.subscribedEvents = subscribedEvents;
-    }
-
     public Gender getGender() {
         return gender;
     }
