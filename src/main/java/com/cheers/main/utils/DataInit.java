@@ -3,6 +3,7 @@ package com.cheers.main.utils;
 import com.cheers.main.model.account.User;
 import com.cheers.main.model.enums.Gender;
 import com.cheers.main.model.events.Event;
+import com.cheers.main.model.events.Questions;
 import com.cheers.main.model.events.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -34,8 +35,8 @@ public class DataInit implements CommandLineRunner {
         User user2 = createUser("bibbo", "falso");
 
 
-        createEvent(user, "Titolo dell'evento", "descrizione");
-        createEvent(user2, "Evento di " + user2.getName(), "descrizione 2");
+        createEvent(user, "Titolo dell'evento", "descrizione", true);
+        createEvent(user2, "Evento di " + user2.getName(), "descrizione 2", false);
     }
 
     private User createUser(String name, String surname) {
@@ -52,7 +53,7 @@ public class DataInit implements CommandLineRunner {
         return user;
     }
 
-    private Event createEvent(User user, String title, String description) {
+    private Event createEvent(User user, String title, String description, boolean putQuestion) {
         Event event = new Event();
         event.setId(UUID.randomUUID().toString());
         event.setDescription(description);
@@ -65,7 +66,6 @@ public class DataInit implements CommandLineRunner {
         event.setStartSubscription(new Date());
         event.setTitle(title);
         event.setViews(233);
-        event.setCity(null);
         event.setCommercialCreator(null);
         event.setPrivateCreator(user);
         event.setAddress("via milano");
@@ -78,6 +78,16 @@ public class DataInit implements CommandLineRunner {
 
         event.setTags(Collections.singletonList(tag));
         dbManager.getEventsService().createNewEvent(event);
+
+        if (putQuestion) {
+            Questions questions = new Questions();
+            questions.setId(UUID.randomUUID().toString());
+            questions.setEvent(event);
+            questions.setQuestion("Ma che famo?");
+            questions.setAnswer("Droga e puttane");
+            dbManager.getQuestionsService().saveQuestion(questions);
+        }
+
         return event;
     }
 

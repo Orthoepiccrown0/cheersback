@@ -4,6 +4,7 @@ import com.cheers.main.model.Media;
 import com.cheers.main.service.impl.EventsService;
 import com.cheers.main.service.impl.LoginService;
 import com.cheers.main.service.impl.MediaService;
+import com.cheers.main.service.impl.QuestionsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +17,19 @@ public class DBManager {
 
     private MediaService mediaService;
 
+    private QuestionsService questionsService;
+
     public MediaService getMediaService() {
         return mediaService;
+    }
+
+    public QuestionsService getQuestionsService() {
+        return questionsService;
+    }
+
+    @Autowired
+    public void setQuestionsService(QuestionsService questionsService) {
+        this.questionsService = questionsService;
     }
 
     @Autowired

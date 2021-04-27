@@ -52,8 +52,6 @@ public class Event {
 
     private String address;
 
-    @OneToOne
-    private City city;
 
     @OneToMany
     private List<Tag> tags;
@@ -177,14 +175,6 @@ public class Event {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public City getCity() {
-        return city;
-    }
-
-    public void setCity(City city) {
-        this.city = city;
     }
 
     public List<Tag> getTags() {

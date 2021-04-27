@@ -2,7 +2,6 @@ package com.cheers.main.service.impl;
 
 import com.cheers.main.model.account.Company;
 import com.cheers.main.model.account.User;
-import com.cheers.main.model.events.City;
 import com.cheers.main.model.events.Event;
 import com.cheers.main.model.events.Tag;
 import com.cheers.main.repository.EventRepository;
@@ -38,11 +37,6 @@ public class EventsService implements IEventsService {
     @Autowired
     public void setTagRepository(TagRepository tagRepository) {
         this.tagRepository = tagRepository;
-    }
-
-    @Override
-    public List<Event> getEventsByCity(City city) {
-        return eventRepository.findAllByCity(city);
     }
 
     @Override
