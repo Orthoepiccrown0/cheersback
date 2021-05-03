@@ -1,10 +1,7 @@
 package com.cheers.main.utils;
 
 import com.cheers.main.model.Media;
-import com.cheers.main.service.impl.EventsService;
-import com.cheers.main.service.impl.LoginService;
-import com.cheers.main.service.impl.MediaService;
-import com.cheers.main.service.impl.QuestionsService;
+import com.cheers.main.service.impl.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +15,17 @@ public class DBManager {
     private MediaService mediaService;
 
     private QuestionsService questionsService;
+
+    private TagsService tagsService;
+
+    public TagsService getTagsService() {
+        return tagsService;
+    }
+
+    @Autowired
+    public void setTagsService(TagsService tagsService) {
+        this.tagsService = tagsService;
+    }
 
     public MediaService getMediaService() {
         return mediaService;

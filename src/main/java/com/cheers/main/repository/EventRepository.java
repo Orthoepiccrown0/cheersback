@@ -24,4 +24,6 @@ public interface EventRepository extends JpaRepository<Event, String> {
 
     List<Event> findAllBySubscribers(User user);
 
+    List<Event> findAllByOrderByEventDayDesc();
+
 }

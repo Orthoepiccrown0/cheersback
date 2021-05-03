@@ -3,13 +3,12 @@ package com.cheers.main.utils;
 import com.cheers.main.model.account.User;
 import com.cheers.main.model.enums.Gender;
 import com.cheers.main.model.events.Event;
-import com.cheers.main.model.events.Questions;
+import com.cheers.main.model.events.Question;
 import com.cheers.main.model.events.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 @Component
@@ -32,11 +31,24 @@ public class DataInit implements CommandLineRunner {
 
     private void createTestUnits() {
         User user = createUser("diego", "concetti");
-        User user2 = createUser("bibbo", "falso");
+        User user2 = createUser("luca", "lu");
 
+        generateTags();
 
         createEvent(user, "Titolo dell'evento", "descrizione", true);
         createEvent(user2, "Evento di " + user2.getName(), "descrizione 2", false);
+
+    }
+
+    private void generateTags() {
+        String[] tags = {"Pop", "Sport", "Musica", "Rap", "Rock", "Nerds", "PC", "Fotografia", "Discoteca", "Alcol",
+                "Arte", "Crossfit", "Ciclismo", "Politica", "Gaming", "Cinema", "Yoga", "Vegan", "Volontariato", "Calcio",
+                "Basket", "Cibo", "Festa", "Auto", "Moto", "Working out", "Festivale"};
+        for (String tag : tags) {
+            Tag t = new Tag();
+            t.setName(tag);
+            dbManager.getTagsService().saveTag(t);
+        }
     }
 
     private User createUser(String name, String surname) {
@@ -66,26 +78,23 @@ public class DataInit implements CommandLineRunner {
         event.setStartSubscription(new Date());
         event.setTitle(title);
         event.setViews(233);
+        event.setCreatedDate(new Date());
         event.setCommercialCreator(null);
         event.setPrivateCreator(user);
         event.setAddress("via milano");
         event.setLat("43.145266");
         event.setLon("13.098231");
 
-        Tag tag = new Tag();
-        tag.setName("tag");
-        dbManager.getEventsService().saveTag(tag);
-
-        event.setTags(Collections.singletonList(tag));
         dbManager.getEventsService().createNewEvent(event);
 
         if (putQuestion) {
-            Questions questions = new Questions();
-            questions.setId(UUID.randomUUID().toString());
-            questions.setEvent(event);
-            questions.setQuestion("Ma che famo?");
-            questions.setAnswer("Droga e puttane");
-            dbManager.getQuestionsService().saveQuestion(questions);
+            Question question = new Question();
+            question.setId(UUID.randomUUID().toString());
+            question.setEvent(event);
+            question.setResponseDate(new Date());
+            question.setQuestion("Esempio domanda");
+            question.setAnswer("Esempio risposta");
+            dbManager.getQuestionsService().saveQuestion(question);
         }
 
         return event;

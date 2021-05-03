@@ -36,6 +36,9 @@ public class Event {
     @Column(nullable = false)
     private Date eventDay;
 
+    @Column(nullable = false)
+    private Date createdDate;
+
     private Integer guests;
 
     private Integer maxGuests;
@@ -64,6 +67,14 @@ public class Event {
 
     @OneToOne
     private Company commercialCreator;
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
 
     public String getId() {
         return id;

@@ -3,9 +3,10 @@ package com.cheers.main.model.events;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import java.util.Date;
 
 @Entity
-public class Questions {
+public class Question {
 
     @Id
     private String id;
@@ -13,6 +14,8 @@ public class Questions {
     private String question;
 
     private String answer;
+
+    private Date responseDate;
 
     @OneToOne
     private Event event;
@@ -47,5 +50,13 @@ public class Questions {
 
     public void setEvent(Event event) {
         this.event = event;
+    }
+
+    public Date getResponseDate() {
+        return responseDate;
+    }
+
+    public void setResponseDate(Date responseDate) {
+        this.responseDate = responseDate;
     }
 }

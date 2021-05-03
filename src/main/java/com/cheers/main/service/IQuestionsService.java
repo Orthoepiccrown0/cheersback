@@ -1,16 +1,18 @@
 package com.cheers.main.service;
 
 import com.cheers.main.model.events.Event;
-import com.cheers.main.model.events.Questions;
+import com.cheers.main.model.events.Question;
 
 import java.util.List;
 
 public interface IQuestionsService {
-    List<Questions> findAllQuestionsToAnswer(Event event);
+    List<Question> findAllUncompletedQuestionsByEvent(Event event);
 
-    List<Questions> findAllQuestionsToEvent(Event event);
+    List<Question> findAllQuestionsByEvent(Event event);
 
-    void saveQuestion(Questions questions);
+    void saveQuestion(Question question);
 
-    Questions findById(String id);
+    Question findById(String id);
+
+    void cancelQuestion(Question question);
 }

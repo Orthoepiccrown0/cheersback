@@ -22,8 +22,6 @@ public class EventsService implements IEventsService {
 
     private EventRepository eventRepository;
 
-    private TagRepository tagRepository;
-
     @Autowired
     public void setDbManager(DBManager dbManager) {
         this.dbManager = dbManager;
@@ -32,11 +30,6 @@ public class EventsService implements IEventsService {
     @Autowired
     public void setEventRepository(EventRepository eventRepository) {
         this.eventRepository = eventRepository;
-    }
-
-    @Autowired
-    public void setTagRepository(TagRepository tagRepository) {
-        this.tagRepository = tagRepository;
     }
 
     @Override
@@ -101,11 +94,7 @@ public class EventsService implements IEventsService {
 
 
     public List<Event> getAllEvents() {
-        return eventRepository.findAll();
-    }
-
-    public void saveTag(Tag tag) {
-        tagRepository.save(tag);
+        return eventRepository.findAllByOrderByEventDayDesc();
     }
 
 

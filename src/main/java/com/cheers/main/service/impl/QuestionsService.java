@@ -1,10 +1,9 @@
 package com.cheers.main.service.impl;
 
 import com.cheers.main.model.events.Event;
-import com.cheers.main.model.events.Questions;
+import com.cheers.main.model.events.Question;
 import com.cheers.main.repository.QuestionsRepository;
 import com.cheers.main.service.IQuestionsService;
-import com.cheers.main.utils.DBManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -23,22 +22,27 @@ public class QuestionsService implements IQuestionsService {
     }
 
     @Override
-    public List<Questions> findAllQuestionsToAnswer(Event event) {
+    public List<Question> findAllUncompletedQuestionsByEvent(Event event) {
         return questionsRepository.findAllByAnswerIsNullAndEvent(event);
     }
 
     @Override
-    public List<Questions> findAllQuestionsToEvent(Event event) {
-        return questionsRepository.findAllByEvent(event);
+    public List<Question> findAllQuestionsByEvent(Event event) {
+        return questionsRepository.findAllByEventAndAnswerIsNotNull(event);
     }
 
     @Override
-    public void saveQuestion(Questions questions) {
-        questionsRepository.save(questions);
+    public void saveQuestion(Question question) {
+        questionsRepository.save(question);
     }
 
     @Override
-    public Questions findById(String id) {
+    public Question findById(String id) {
         return questionsRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public void cancelQuestion(Question item) {
+        questionsRepository.delete(item);
     }
 }
