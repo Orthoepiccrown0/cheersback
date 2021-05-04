@@ -14,7 +14,15 @@ public interface IEventsService {
 
     List<Event> getEventsByTitle(String title);
 
+    List<Event> getPrivateEventsByTitle(String title);
+
+    List<Event> getCommercialEventsByTitle(String title);
+
     List<Event> getSubscribedEvents(User user);
+
+    List<Event> getPrivateEvents();
+
+    List<Event> getCommercialEvents();
 
     void createNewEvent(Event event);
 

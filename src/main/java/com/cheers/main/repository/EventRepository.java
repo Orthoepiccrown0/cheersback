@@ -16,11 +16,19 @@ public interface EventRepository extends JpaRepository<Event, String> {
 
     List<Event> findAllByCommercialCreatorIsNotNullAndCommercialCreator(Company company);
 
+    List<Event> findAllByCommercialCreatorIsNotNull();
+
+    List<Event> findAllByPrivateCreatorIsNotNull();
+
     List<Event> findAllByEventDay(Date eventDay);
 
     List<Event> findAllByStartSubscriptionLessThanEqualAndEventDayGreaterThanEqual(Date start, Date end);
 
     List<Event> findAllByTitleStartsWith(String title);
+
+    List<Event> findAllByTitleStartsWithAndPrivateCreatorIsNotNull(String title);
+
+    List<Event> findAllByTitleStartsWithAndCommercialCreatorIsNotNull(String title);
 
     List<Event> findAllBySubscribers(User user);
 

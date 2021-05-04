@@ -59,8 +59,28 @@ public class EventsService implements IEventsService {
     }
 
     @Override
+    public List<Event> getPrivateEventsByTitle(String title) {
+        return eventRepository.findAllByTitleStartsWithAndPrivateCreatorIsNotNull(title);
+    }
+
+    @Override
+    public List<Event> getCommercialEventsByTitle(String title) {
+        return eventRepository.findAllByTitleStartsWithAndCommercialCreatorIsNotNull(title);
+    }
+
+    @Override
     public List<Event> getSubscribedEvents(User user) {
         return eventRepository.findAllBySubscribers(user);
+    }
+
+    @Override
+    public List<Event> getPrivateEvents() {
+        return eventRepository.findAllByPrivateCreatorIsNotNull();
+    }
+
+    @Override
+    public List<Event> getCommercialEvents() {
+        return eventRepository.findAllByCommercialCreatorIsNotNull();
     }
 
     @Override
