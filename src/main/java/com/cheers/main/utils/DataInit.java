@@ -1,5 +1,6 @@
 package com.cheers.main.utils;
 
+import com.cheers.main.model.account.Company;
 import com.cheers.main.model.account.User;
 import com.cheers.main.model.enums.Gender;
 import com.cheers.main.model.events.Event;
@@ -33,11 +34,15 @@ public class DataInit implements CommandLineRunner {
         User user = createUser("diego", "concetti");
         User user2 = createUser("luca", "lu");
 
+        Company company = createCompany("IBRI SRL", "123456");
+
+
         generateTags();
 
         createEvent(user, "Titolo dell'evento", "descrizione", true);
         createEvent(user2, "Evento di " + user2.getName(), "descrizione 2", false);
 
+        createCommercialEvent(company,"Titolo commerciale","evento commerciale",false);
     }
 
     private void generateTags() {
@@ -65,6 +70,19 @@ public class DataInit implements CommandLineRunner {
         return user;
     }
 
+    private Company createCompany(String name, String pIva) {
+        Company company = new Company();
+        company.setId(UUID.randomUUID().toString());
+        company.setName(name);
+        company.setEmail("comm@gmail.com");
+        company.setPassword("123");
+        company.setBio("descrizione della company");
+        company.setAvatar(null);
+        company.setpIva(pIva);
+        dbManager.getLoginService().saveCompany(company);
+        return company;
+    }
+
     private Event createEvent(User user, String title, String description, boolean putQuestion) {
         Event event = new Event();
         event.setId(UUID.randomUUID().toString());
@@ -82,6 +100,42 @@ public class DataInit implements CommandLineRunner {
         event.setCommercialCreator(null);
         event.setPrivateCreator(user);
         event.setAddress("via milano");
+        event.setLat("43.145266");
+        event.setLon("13.098231");
+
+        dbManager.getEventsService().createNewEvent(event);
+
+        if (putQuestion) {
+            Question question = new Question();
+            question.setId(UUID.randomUUID().toString());
+            question.setEvent(event);
+            question.setResponseDate(new Date());
+            question.setQuestion("Esempio domanda");
+            question.setAnswer("Esempio risposta");
+            dbManager.getQuestionsService().saveQuestion(question);
+        }
+
+        return event;
+    }
+
+
+    private Event createCommercialEvent(Company company, String title, String description, boolean putQuestion) {
+        Event event = new Event();
+        event.setId(UUID.randomUUID().toString());
+        event.setDescription(description);
+        event.setEventDay(new Date());
+        event.setGuests(4);
+        event.setMedia(null);
+        event.setMaxGuests(14);
+        event.setMinGuests(0);
+        event.setPromoted(false);
+        event.setStartSubscription(new Date());
+        event.setTitle(title);
+        event.setViews(233);
+        event.setCreatedDate(new Date());
+        event.setCommercialCreator(company);
+        event.setPrivateCreator(null);
+        event.setAddress("via torino");
         event.setLat("43.145266");
         event.setLon("13.098231");
 
