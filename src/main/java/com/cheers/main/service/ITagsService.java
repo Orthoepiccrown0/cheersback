@@ -1,6 +1,6 @@
 package com.cheers.main.service;
 
-import com.cheers.main.model.events.Tag;
+import com.cheers.main.model.Tag;
 
 import java.util.List;
 

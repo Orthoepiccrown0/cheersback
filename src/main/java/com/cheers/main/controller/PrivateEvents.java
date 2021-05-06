@@ -1,10 +1,13 @@
 package com.cheers.main.controller;
 
+import com.cheers.main.model.account.User;
 import com.cheers.main.model.events.Event;
+import com.cheers.main.model.events.PrivateEvent;
 import com.cheers.main.utils.DBManager;
 import com.cheers.main.utils.Helpers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,12 +24,42 @@ public class PrivateEvents {
         this.dbManager = dbManager;
     }
 
+    @GetMapping("event/private/get")
+    public List<PrivateEvent> getPrivateEventsByTitle(@RequestParam String title) {
+        return dbManager.getEventsService().getPrivateEventsByTitle(title);
+    }
+
+    @PostMapping("event/private/subscribe")
+    public PrivateEvent subscribeToEvent(@RequestParam String eventId,
+                                         @RequestParam String userId) {
+
+        PrivateEvent event = dbManager.getEventsService().findPrivateEventById(eventId);
+        User user = dbManager.getLoginService().findUserById(userId);
+
+        if (!event.getSubscribers().contains(user)) {
+            dbManager.getEventsService().subscribeToPrivateEvent(event, user);
+        }
+        return event;
+    }
+
+    @PostMapping("event/private/unsubscribe")
+    public void unsubscribeFromEvent(@RequestParam String eventId,
+                                     @RequestParam String userId) {
+
+        PrivateEvent event = dbManager.getEventsService().findPrivateEventById(eventId);
+        User user = dbManager.getLoginService().findUserById(userId);
+
+        if (event.getSubscribers().contains(user)) {
+            dbManager.getEventsService().unsubscribeFromPrivateEvent(event, user);
+        }
+    }
+
     @GetMapping("event/private/get/today")
-    public List<Event> getEventsByToday() {
-        List<Event> futureEvents = new ArrayList<>();
+    public List<PrivateEvent> getEventsByToday() {
+        List<PrivateEvent> futureEvents = new ArrayList<>();
         int today = currentCalendar.get(Calendar.DATE);
         Date now = new Date();
-        for (Event e : getAllEvents()) {
+        for (PrivateEvent e : getAllEvents()) {
             if (e.getEventDay().after(now)) {
                 Calendar cal = Calendar.getInstance(TimeZone.getDefault());
                 cal.setTime(e.getEventDay());
@@ -40,13 +73,13 @@ public class PrivateEvents {
     }
 
     @GetMapping("event/private/get/today/position")
-    public List<Event> getEventsByToday(@RequestParam String lat,
-                                        @RequestParam String lon,
-                                        @RequestParam Integer distanceInM) {
-        List<Event> futureEvents = new ArrayList<>();
+    public List<PrivateEvent> getEventsByToday(@RequestParam String lat,
+                                               @RequestParam String lon,
+                                               @RequestParam Integer distanceInM) {
+        List<PrivateEvent> futureEvents = new ArrayList<>();
         int today = currentCalendar.get(Calendar.DATE);
 
-        for (Event e : getAllEvents()) {
+        for (PrivateEvent e : getAllEvents()) {
             Calendar cal = Calendar.getInstance(TimeZone.getDefault());
             cal.setTime(e.getEventDay());
             int eventDay = cal.get(Calendar.DATE);
@@ -61,11 +94,11 @@ public class PrivateEvents {
     }
 
     @GetMapping("event/private/get/week")
-    public List<Event> getEventsByWeek() {
-        List<Event> futureEvents = new ArrayList<>();
+    public List<PrivateEvent> getEventsByWeek() {
+        List<PrivateEvent> futureEvents = new ArrayList<>();
         int weekOfMonth = currentCalendar.get(Calendar.WEEK_OF_MONTH);
         Date now = new Date();
-        for (Event e : getAllEvents()) {
+        for (PrivateEvent e : getAllEvents()) {
             if (e.getEventDay().after(now)) {
                 Calendar cal = Calendar.getInstance(TimeZone.getDefault());
                 cal.setTime(e.getEventDay());
@@ -79,13 +112,13 @@ public class PrivateEvents {
     }
 
     @GetMapping("event/private/get/week/position")
-    public List<Event> getEventsByWeek(@RequestParam String lat,
-                                       @RequestParam String lon,
-                                       @RequestParam Integer distanceInM) {
-        List<Event> futureEvents = new ArrayList<>();
+    public List<PrivateEvent> getEventsByWeek(@RequestParam String lat,
+                                              @RequestParam String lon,
+                                              @RequestParam Integer distanceInM) {
+        List<PrivateEvent> futureEvents = new ArrayList<>();
         int weekOfMonth = currentCalendar.get(Calendar.WEEK_OF_MONTH);
 
-        for (Event e : getAllEvents()) {
+        for (PrivateEvent e : getAllEvents()) {
             Calendar cal = Calendar.getInstance(TimeZone.getDefault());
             cal.setTime(e.getEventDay());
             int eventWeek = cal.get(Calendar.WEEK_OF_MONTH);
@@ -100,11 +133,11 @@ public class PrivateEvents {
     }
 
     @GetMapping("event/private/get/month")
-    public List<Event> getEventsByMonths() {
-        List<Event> futureEvents = new ArrayList<>();
+    public List<PrivateEvent> getEventsByMonths() {
+        List<PrivateEvent> futureEvents = new ArrayList<>();
         int month = currentCalendar.get(Calendar.MONTH);
         Date now = new Date();
-        for (Event e : getAllEvents()) {
+        for (PrivateEvent e : getAllEvents()) {
             if (e.getEventDay().after(now)) {
                 Calendar cal = Calendar.getInstance(TimeZone.getDefault());
                 cal.setTime(e.getEventDay());
@@ -118,13 +151,13 @@ public class PrivateEvents {
     }
 
     @GetMapping("event/private/get/month/position")
-    public List<Event> getEventsByMonths(@RequestParam String lat,
-                                         @RequestParam String lon,
-                                         @RequestParam Integer distanceInM) {
-        List<Event> futureEvents = new ArrayList<>();
+    public List<PrivateEvent> getEventsByMonths(@RequestParam String lat,
+                                                @RequestParam String lon,
+                                                @RequestParam Integer distanceInM) {
+        List<PrivateEvent> futureEvents = new ArrayList<>();
         int month = currentCalendar.get(Calendar.MONTH);
 
-        for (Event e : getAllEvents()) {
+        for (PrivateEvent e : getAllEvents()) {
             Calendar cal = Calendar.getInstance(TimeZone.getDefault());
             cal.setTime(e.getEventDay());
             int eventMonth = cal.get(Calendar.MONTH);
@@ -138,12 +171,12 @@ public class PrivateEvents {
         return futureEvents;
     }
 
-    private List<Event> getCloseEvents(List<Event> eventsInput,
-                                       double lat, double lon,
-                                       Integer distanceInMeters) {
-        List<Event> closestEvents = new ArrayList<>();
+    private List<PrivateEvent> getCloseEvents(List<PrivateEvent> eventsInput,
+                                              double lat, double lon,
+                                              Integer distanceInMeters) {
+        List<PrivateEvent> closestEvents = new ArrayList<>();
 
-        for (Event event : eventsInput) {
+        for (PrivateEvent event : eventsInput) {
             double currDistance = Helpers.distance(lat,
                     Double.parseDouble(event.getLat()),
                     lon,
@@ -156,9 +189,9 @@ public class PrivateEvents {
     }
 
     @GetMapping("/event/private/all/position")
-    private List<Event> getAllEvents(@RequestParam String lat,
-                                     @RequestParam String lon,
-                                     @RequestParam Integer distanceInM) {
+    private List<PrivateEvent> getAllEvents(@RequestParam String lat,
+                                            @RequestParam String lon,
+                                            @RequestParam Integer distanceInM) {
         return getCloseEvents(dbManager.getEventsService().getPrivateEvents(),
                 Double.parseDouble(lat),
                 Double.parseDouble(lon),
@@ -166,7 +199,7 @@ public class PrivateEvents {
     }
 
     @GetMapping("/event/private/all")
-    private List<Event> getAllEvents() {
+    private List<PrivateEvent> getAllEvents() {
         return dbManager.getEventsService().getPrivateEvents();
     }
 

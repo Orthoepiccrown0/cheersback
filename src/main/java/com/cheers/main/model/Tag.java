@@ -1,4 +1,4 @@
-package com.cheers.main.model.events;
+package com.cheers.main.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

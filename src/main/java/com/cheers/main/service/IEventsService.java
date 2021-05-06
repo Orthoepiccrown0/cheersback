@@ -1,36 +1,49 @@
 package com.cheers.main.service;
 
+import com.cheers.main.container.SubscribedEventResponse;
 import com.cheers.main.model.account.User;
+import com.cheers.main.model.events.CommercialEvent;
 import com.cheers.main.model.events.Event;
+import com.cheers.main.model.events.PrivateEvent;
 
 import java.util.Date;
 import java.util.List;
 
 public interface IEventsService {
 
-    List<Event> getEventsByCreatorId(String id);
+    List<PrivateEvent> getPrivateEventsByCreatorId(String id);
 
-    List<Event> getEventsByDate(Date date);
+    List<CommercialEvent> getCommercialEventsByCreatorId(String id);
 
-    List<Event> getEventsByTitle(String title);
+    List<PrivateEvent> getPrivateEventsByDate(Date date);
 
-    List<Event> getPrivateEventsByTitle(String title);
+    List<CommercialEvent> getCommercialEventsByDate(Date date);
 
-    List<Event> getCommercialEventsByTitle(String title);
+    List<PrivateEvent> getPrivateEventsByTitle(String title);
 
-    List<Event> getSubscribedEvents(User user);
+    List<CommercialEvent> getCommercialEventsByTitle(String title);
 
-    List<Event> getPrivateEvents();
+    List<SubscribedEventResponse> getSubscribedEvents(User user);
 
-    List<Event> getCommercialEvents();
+    List<PrivateEvent> getPrivateEvents();
 
-    void createNewEvent(Event event);
+    List<CommercialEvent> getCommercialEvents();
+
+    void createPrivateEvent(PrivateEvent event);
+
+    void createCommercialEvent(CommercialEvent event);
 
     void deleteEvent(Event event);
 
-    void subscribeToEvent(Event event, User user);
+    void subscribeToPrivateEvent(PrivateEvent event, User user);
 
-    void unsubscribeFromEvent(Event event, User user);
+    void subscribeToCommercialEvent(CommercialEvent event, User user);
 
-    Event findEventById(String id);
+    void unsubscribeFromPrivateEvent(PrivateEvent event, User user);
+
+    void unsubscribeFromCommercialEvent(CommercialEvent event, User user);
+
+    PrivateEvent findPrivateEventById(String id);
+
+    CommercialEvent findCommercialEventById(String id);
 }

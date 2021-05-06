@@ -3,9 +3,11 @@ package com.cheers.main.utils;
 import com.cheers.main.model.account.Company;
 import com.cheers.main.model.account.User;
 import com.cheers.main.model.enums.Gender;
+import com.cheers.main.model.events.CommercialEvent;
 import com.cheers.main.model.events.Event;
-import com.cheers.main.model.events.Question;
-import com.cheers.main.model.events.Tag;
+import com.cheers.main.model.Question;
+import com.cheers.main.model.Tag;
+import com.cheers.main.model.events.PrivateEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -42,7 +44,7 @@ public class DataInit implements CommandLineRunner {
         createEvent(user, "Titolo dell'evento", "descrizione", true);
         createEvent(user2, "Evento di " + user2.getName(), "descrizione 2", false);
 
-        createCommercialEvent(company,"Titolo commerciale","evento commerciale",false);
+        createCommercialEvent(company, "Titolo commerciale", "evento commerciale", false);
     }
 
     private void generateTags() {
@@ -84,7 +86,7 @@ public class DataInit implements CommandLineRunner {
     }
 
     private Event createEvent(User user, String title, String description, boolean putQuestion) {
-        Event event = new Event();
+        PrivateEvent event = new PrivateEvent();
         event.setId(UUID.randomUUID().toString());
         event.setDescription(description);
         event.setEventDay(new Date());
@@ -97,18 +99,17 @@ public class DataInit implements CommandLineRunner {
         event.setTitle(title);
         event.setViews(233);
         event.setCreatedDate(new Date());
-        event.setCommercialCreator(null);
-        event.setPrivateCreator(user);
+        event.setCreator(user);
         event.setAddress("via milano");
         event.setLat("43.145266");
         event.setLon("13.098231");
 
-        dbManager.getEventsService().createNewEvent(event);
+        dbManager.getEventsService().createPrivateEvent(event);
 
         if (putQuestion) {
             Question question = new Question();
             question.setId(UUID.randomUUID().toString());
-            question.setEvent(event);
+            question.setPrivateEvent(event);
             question.setResponseDate(new Date());
             question.setQuestion("Esempio domanda");
             question.setAnswer("Esempio risposta");
@@ -119,8 +120,8 @@ public class DataInit implements CommandLineRunner {
     }
 
 
-    private Event createCommercialEvent(Company company, String title, String description, boolean putQuestion) {
-        Event event = new Event();
+    private CommercialEvent createCommercialEvent(Company company, String title, String description, boolean putQuestion) {
+        CommercialEvent event = new CommercialEvent();
         event.setId(UUID.randomUUID().toString());
         event.setDescription(description);
         event.setEventDay(new Date());
@@ -133,18 +134,18 @@ public class DataInit implements CommandLineRunner {
         event.setTitle(title);
         event.setViews(233);
         event.setCreatedDate(new Date());
-        event.setCommercialCreator(company);
-        event.setPrivateCreator(null);
+        event.setCreator(company);
+        event.setMaxRooms(4);
         event.setAddress("via torino");
         event.setLat("43.145266");
         event.setLon("13.098231");
 
-        dbManager.getEventsService().createNewEvent(event);
+        dbManager.getEventsService().createCommercialEvent(event);
 
         if (putQuestion) {
             Question question = new Question();
             question.setId(UUID.randomUUID().toString());
-            question.setEvent(event);
+            question.setCommercialEvent(event);
             question.setResponseDate(new Date());
             question.setQuestion("Esempio domanda");
             question.setAnswer("Esempio risposta");

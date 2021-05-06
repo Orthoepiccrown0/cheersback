@@ -1,7 +1,9 @@
 package com.cheers.main.service.impl;
 
+import com.cheers.main.model.events.CommercialEvent;
 import com.cheers.main.model.events.Event;
-import com.cheers.main.model.events.Question;
+import com.cheers.main.model.Question;
+import com.cheers.main.model.events.PrivateEvent;
 import com.cheers.main.repository.QuestionsRepository;
 import com.cheers.main.service.IQuestionsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,15 +23,27 @@ public class QuestionsService implements IQuestionsService {
         this.questionsRepository = questionsRepository;
     }
 
+
     @Override
-    public List<Question> findAllUncompletedQuestionsByEvent(Event event) {
-        return questionsRepository.findAllByAnswerIsNullAndEvent(event);
+    public List<Question> findAllUncompletedQuestionsByEvent(PrivateEvent event) {
+        return questionsRepository.findAllByAnswerIsNullAndPrivateEvent(event);
     }
 
     @Override
-    public List<Question> findAllQuestionsByEvent(Event event) {
-        return questionsRepository.findAllByEventAndAnswerIsNotNull(event);
+    public List<Question> findAllUncompletedQuestionsByEvent(CommercialEvent event) {
+        return questionsRepository.findAllByAnswerIsNullAndCommercialEvent(event);
     }
+
+    @Override
+    public List<Question> findAllQuestionsByEvent(PrivateEvent event) {
+        return null;
+    }
+
+    @Override
+    public List<Question> findAllQuestionsByEvent(CommercialEvent event) {
+        return null;
+    }
+
 
     @Override
     public void saveQuestion(Question question) {

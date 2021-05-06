@@ -1,6 +1,6 @@
 package com.cheers.main.service.impl;
 
-import com.cheers.main.model.events.Tag;
+import com.cheers.main.model.Tag;
 import com.cheers.main.repository.TagRepository;
 import com.cheers.main.service.ITagsService;
 import org.springframework.beans.factory.annotation.Autowired;

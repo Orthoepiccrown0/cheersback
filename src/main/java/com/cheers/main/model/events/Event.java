@@ -1,14 +1,14 @@
 package com.cheers.main.model.events;
 
 import com.cheers.main.model.Media;
-import com.cheers.main.model.account.Company;
+import com.cheers.main.model.Tag;
 import com.cheers.main.model.account.User;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-@Entity
+@MappedSuperclass
 public class Event {
 
     public Event() {
@@ -55,18 +55,11 @@ public class Event {
 
     private String address;
 
-
     @OneToMany
     private List<Tag> tags;
 
     @ManyToMany
     private List<User> subscribers;
-
-    @OneToOne
-    private User privateCreator;
-
-    @OneToOne
-    private Company commercialCreator;
 
     public Date getCreatedDate() {
         return createdDate;
@@ -194,22 +187,6 @@ public class Event {
 
     public void setTags(List<Tag> tags) {
         this.tags = tags;
-    }
-
-    public User getPrivateCreator() {
-        return privateCreator;
-    }
-
-    public void setPrivateCreator(User privateCreator) {
-        this.privateCreator = privateCreator;
-    }
-
-    public Company getCommercialCreator() {
-        return commercialCreator;
-    }
-
-    public void setCommercialCreator(Company commercialCreator) {
-        this.commercialCreator = commercialCreator;
     }
 
     public List<User> getSubscribers() {

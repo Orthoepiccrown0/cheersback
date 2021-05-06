@@ -1,6 +1,6 @@
 package com.cheers.main.controller;
 
-import com.cheers.main.model.events.Tag;
+import com.cheers.main.model.Tag;
 import com.cheers.main.utils.DBManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

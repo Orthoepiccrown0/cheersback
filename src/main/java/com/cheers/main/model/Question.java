@@ -1,4 +1,8 @@
-package com.cheers.main.model.events;
+package com.cheers.main.model;
+
+import com.cheers.main.model.events.CommercialEvent;
+import com.cheers.main.model.events.Event;
+import com.cheers.main.model.events.PrivateEvent;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -18,7 +22,10 @@ public class Question {
     private Date responseDate;
 
     @OneToOne
-    private Event event;
+    private PrivateEvent privateEvent;
+
+    @OneToOne
+    private CommercialEvent commercialEvent;
 
     public String getId() {
         return id;
@@ -44,12 +51,20 @@ public class Question {
         this.answer = answer;
     }
 
-    public Event getEvent() {
-        return event;
+    public PrivateEvent getPrivateEvent() {
+        return privateEvent;
     }
 
-    public void setEvent(Event event) {
-        this.event = event;
+    public void setPrivateEvent(PrivateEvent privateEvent) {
+        this.privateEvent = privateEvent;
+    }
+
+    public CommercialEvent getCommercialEvent() {
+        return commercialEvent;
+    }
+
+    public void setCommercialEvent(CommercialEvent commercialEvent) {
+        this.commercialEvent = commercialEvent;
     }
 
     public Date getResponseDate() {

@@ -1,11 +1,14 @@
 package com.cheers.main.controller;
 
 import com.cheers.main.container.LoginResponse;
+import com.cheers.main.container.SubscribedEventResponse;
 import com.cheers.main.model.Media;
 import com.cheers.main.model.account.Account;
 import com.cheers.main.model.account.Company;
 import com.cheers.main.model.account.User;
+import com.cheers.main.model.events.CommercialEvent;
 import com.cheers.main.model.events.Event;
+import com.cheers.main.model.events.PrivateEvent;
 import com.cheers.main.utils.DBManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -90,22 +93,19 @@ public class Profile {
     }
 
     @GetMapping("event/get/user")
-    public List<Event> getEventsByUser(@RequestParam String id) {
-        User user = dbManager.getLoginService().findUserById(id);
+    public List<PrivateEvent> getEventsByUser(@RequestParam String id) {
+        return dbManager.getEventsService().getPrivateEventsByCreatorId(id);
+    }
 
-        return dbManager.getEventsService().getEventsByCreatorId(id);
+    @GetMapping("event/get/company")
+    public List<CommercialEvent> getEventsByCompany(@RequestParam String id) {
+        return dbManager.getEventsService().getCommercialEventsByCreatorId(id);
     }
 
     @GetMapping("event/get/user/subscribed")
-    public List<Event> getSubscribedEvents(@RequestParam String id) {
+    public List<SubscribedEventResponse> getSubscribedEvents(@RequestParam String id) {
         User user = dbManager.getLoginService().findUserById(id);
-        List<Event> events = dbManager.getEventsService().getAllEvents();
-        List<Event> userSubscriptions = new ArrayList<>();
-        for (Event event : events) {
-            if (event.getSubscribers().contains(user))
-                userSubscriptions.add(event);
-        }
-        return userSubscriptions;
+        return dbManager.getEventsService().getSubscribedEvents(user);
     }
 
 
