@@ -18,6 +18,17 @@ public class DBManager {
 
     private TagsService tagsService;
 
+    private RoomsService roomsService;
+
+    public RoomsService getRoomsService() {
+        return roomsService;
+    }
+
+    @Autowired
+    public void setRoomsService(RoomsService roomsService) {
+        this.roomsService = roomsService;
+    }
+
     public TagsService getTagsService() {
         return tagsService;
     }

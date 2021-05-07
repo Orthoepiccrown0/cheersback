@@ -29,9 +29,9 @@ public interface IEventsService {
 
     List<CommercialEvent> getCommercialEvents();
 
-    void createPrivateEvent(PrivateEvent event);
+    void savePrivateEvent(PrivateEvent event);
 
-    void createCommercialEvent(CommercialEvent event);
+    void saveCommercialEvent(CommercialEvent event);
 
     void deleteEvent(Event event);
 

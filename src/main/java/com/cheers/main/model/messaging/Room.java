@@ -1,10 +1,15 @@
 package com.cheers.main.model.messaging;
 
 import com.cheers.main.model.Media;
+import com.cheers.main.model.account.User;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Room {
@@ -18,13 +23,32 @@ public class Room {
 
     private Integer maxMembers;
 
-    private Integer members;
+    private Integer membersNum;
+
+    private Date created;
+
+    @OneToMany
+    private List<User> members;
 
     @OneToOne
     private Chat chat;
 
     @OneToOne
     private Media image;
+
+    public void addMember(User user) {
+        if (members == null)
+            members = new ArrayList<>();
+        members.add(user);
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
 
     public String getId() {
         return id;
@@ -58,11 +82,19 @@ public class Room {
         this.maxMembers = maxMembers;
     }
 
-    public Integer getMembers() {
+    public Integer getMembersNum() {
+        return membersNum;
+    }
+
+    public void setMembersNum(Integer membersNum) {
+        this.membersNum = membersNum;
+    }
+
+    public List<User> getMembers() {
         return members;
     }
 
-    public void setMembers(Integer members) {
+    public void setMembers(List<User> members) {
         this.members = members;
     }
 

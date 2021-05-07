@@ -104,7 +104,7 @@ public class DataInit implements CommandLineRunner {
         event.setLat("43.145266");
         event.setLon("13.098231");
 
-        dbManager.getEventsService().createPrivateEvent(event);
+        dbManager.getEventsService().savePrivateEvent(event);
 
         if (putQuestion) {
             Question question = new Question();
@@ -140,7 +140,7 @@ public class DataInit implements CommandLineRunner {
         event.setLat("43.145266");
         event.setLon("13.098231");
 
-        dbManager.getEventsService().createCommercialEvent(event);
+        dbManager.getEventsService().saveCommercialEvent(event);
 
         if (putQuestion) {
             Question question = new Question();

@@ -70,7 +70,7 @@ public class NewEvent {
         Chat chat = new Chat();
         chat.setId(UUID.randomUUID().toString());
 
-        dbManager.getEventsService().createPrivateEvent(event);
+        dbManager.getEventsService().savePrivateEvent(event);
         return "ok";
     }
 
@@ -115,7 +115,7 @@ public class NewEvent {
         Chat chat = new Chat();
         chat.setId(UUID.randomUUID().toString());
 
-        dbManager.getEventsService().createCommercialEvent(event);
+        dbManager.getEventsService().saveCommercialEvent(event);
         return "ok";
     }
 

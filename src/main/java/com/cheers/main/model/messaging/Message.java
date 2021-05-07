@@ -6,6 +6,7 @@ import com.cheers.main.model.account.User;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import java.util.Date;
 
 @Entity
 public class Message {
@@ -15,11 +16,23 @@ public class Message {
 
     private String message;
 
+    private Date created;
+
     @OneToOne
     private User privateSender;
 
     @OneToOne
     private Company commercialSender;
+
+
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
 
     public String getId() {
         return id;

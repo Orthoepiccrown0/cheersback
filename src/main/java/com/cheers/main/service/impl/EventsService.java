@@ -10,6 +10,7 @@ import com.cheers.main.repository.CommercialEventRepository;
 import com.cheers.main.repository.PrivateEventRepository;
 import com.cheers.main.service.IEventsService;
 import com.cheers.main.utils.DBManager;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,20 @@ public class EventsService implements IEventsService {
     @Qualifier
     private CommercialEventRepository commercialEvents;
 
+    @Autowired
+    public void setDbManager(DBManager dbManager) {
+        this.dbManager = dbManager;
+    }
+
+    @Autowired
+    public void setPrivateEvents(PrivateEventRepository privateEvents) {
+        this.privateEvents = privateEvents;
+    }
+
+    @Autowired
+    public void setCommercialEvents(CommercialEventRepository commercialEvents) {
+        this.commercialEvents = commercialEvents;
+    }
 
     @Override
     public List<PrivateEvent> getPrivateEventsByCreatorId(String id) {
@@ -93,12 +108,12 @@ public class EventsService implements IEventsService {
     }
 
     @Override
-    public void createPrivateEvent(PrivateEvent event) {
+    public void savePrivateEvent(PrivateEvent event) {
         privateEvents.save(event);
     }
 
     @Override
-    public void createCommercialEvent(CommercialEvent event) {
+    public void saveCommercialEvent(CommercialEvent event) {
         commercialEvents.save(event);
     }
 
