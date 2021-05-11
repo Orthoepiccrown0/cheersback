@@ -2,6 +2,7 @@ package com.cheers.main.service.impl;
 
 import com.cheers.main.model.events.CommercialEvent;
 import com.cheers.main.model.messaging.Chat;
+import com.cheers.main.model.messaging.Message;
 import com.cheers.main.model.messaging.Room;
 import com.cheers.main.repository.ChatRepository;
 import com.cheers.main.repository.MessageRepository;
@@ -68,5 +69,15 @@ public class RoomsService implements IRoomsService {
     @Override
     public void saveRoom(Room room) {
         roomRepository.save(room);
+    }
+
+    @Override
+    public void saveChat(Chat chat) {
+        chatRepository.save(chat);
+    }
+
+    @Override
+    public void saveMessage(Message message) {
+        messageRepository.save(message);
     }
 }

@@ -1,5 +1,6 @@
 package com.cheers.main.controller;
 
+import com.cheers.main.model.Media;
 import com.cheers.main.model.account.Company;
 import com.cheers.main.model.account.User;
 import com.cheers.main.model.events.CommercialEvent;
@@ -40,7 +41,8 @@ public class NewEvent {
                                    String lon,
                                    String address,
                                    String userid,
-                                   String tags
+                                   String tags,
+                                   Media media
     ) throws ParseException {
         User privateCreator = dbManager.getLoginService().findUserById(userid);
 
@@ -59,6 +61,10 @@ public class NewEvent {
         event.setCreatedDate(new Date());
         event.setAddress(address);
 
+        if (media != null)
+            if (media.getId() != null)
+                event.setMedia(media);
+
         if (tags != null) {
             List<Tag> tagsList = new Gson().fromJson(tags, new TypeToken<List<Tag>>() {
             }.getType());
@@ -69,7 +75,9 @@ public class NewEvent {
 
         Chat chat = new Chat();
         chat.setId(UUID.randomUUID().toString());
-
+        chat.setCreated(new Date());
+        dbManager.getRoomsService().saveChat(chat);
+        event.setChat(chat);
         dbManager.getEventsService().savePrivateEvent(event);
         return "ok";
     }
@@ -80,12 +88,13 @@ public class NewEvent {
                                    String startDate,
                                    String eventDate,
                                    Integer maxSubscribers,
+                                   Integer maxRooms,
                                    String lat,
                                    String lon,
                                    String address,
                                    String userid,
                                    String tags,
-                                   Integer maxRooms
+                                   Media media
     ) throws ParseException {
         Company company = dbManager.getLoginService().findCompanyById(userid);
 
@@ -104,6 +113,10 @@ public class NewEvent {
         event.setCreatedDate(new Date());
         event.setAddress(address);
 
+        if (media != null) {
+            event.setMedia(media);
+        }
+
         if (tags != null) {
             List<Tag> tagsList = new Gson().fromJson(tags, new TypeToken<List<Tag>>() {
             }.getType());
@@ -114,7 +127,9 @@ public class NewEvent {
 
         Chat chat = new Chat();
         chat.setId(UUID.randomUUID().toString());
-
+        chat.setCreated(new Date());
+        dbManager.getRoomsService().saveChat(chat);
+//        event.setChat(chat);
         dbManager.getEventsService().saveCommercialEvent(event);
         return "ok";
     }

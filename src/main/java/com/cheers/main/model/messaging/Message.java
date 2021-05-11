@@ -6,10 +6,11 @@ import com.cheers.main.model.account.User;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import java.util.Comparator;
 import java.util.Date;
 
 @Entity
-public class Message {
+public class Message implements Comparable<Message> {
 
     @Id
     private String id;
@@ -23,8 +24,6 @@ public class Message {
 
     @OneToOne
     private Company commercialSender;
-
-
 
     public Date getCreated() {
         return created;
@@ -64,5 +63,11 @@ public class Message {
 
     public void setCommercialSender(Company commercialSender) {
         this.commercialSender = commercialSender;
+    }
+
+
+    @Override
+    public int compareTo(Message o) {
+        return created.compareTo(o.created);
     }
 }

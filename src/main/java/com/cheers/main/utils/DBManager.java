@@ -20,6 +20,17 @@ public class DBManager {
 
     private RoomsService roomsService;
 
+    private MessagingService messagingService;
+
+    public MessagingService getMessagingService() {
+        return messagingService;
+    }
+
+    @Autowired
+    public void setMessagingService(MessagingService messagingService) {
+        this.messagingService = messagingService;
+    }
+
     public RoomsService getRoomsService() {
         return roomsService;
     }

@@ -8,9 +8,11 @@ import com.cheers.main.repository.RoomRepository;
 import com.cheers.main.service.IMessaging;
 import com.cheers.main.utils.DBManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class MessagingService implements IMessaging {
 
     private DBManager dbManager;
