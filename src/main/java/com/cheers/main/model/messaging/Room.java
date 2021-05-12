@@ -1,12 +1,10 @@
 package com.cheers.main.model.messaging;
 
 import com.cheers.main.model.Media;
+import com.cheers.main.model.account.Company;
 import com.cheers.main.model.account.User;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,19 +25,41 @@ public class Room {
 
     private Date created;
 
-    @OneToMany
+    @OneToOne
+    private User creator;
+
+    @OneToOne
+    private Company host;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<User> members;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Chat chat;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Media image;
+
+    public Company getHost() {
+        return host;
+    }
+
+    public void setHost(Company host) {
+        this.host = host;
+    }
 
     public void addMember(User user) {
         if (members == null)
             members = new ArrayList<>();
         members.add(user);
+    }
+
+    public User getCreator() {
+        return creator;
+    }
+
+    public void setCreator(User creator) {
+        this.creator = creator;
     }
 
     public Date getCreated() {

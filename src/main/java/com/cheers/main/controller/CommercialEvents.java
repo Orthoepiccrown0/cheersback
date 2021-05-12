@@ -25,6 +25,11 @@ public class CommercialEvents {
         this.dbManager = dbManager;
     }
 
+    @GetMapping("/event/commercial/get/id")
+    public CommercialEvent getEvent(@RequestParam CommercialEvent event) {
+        return event;
+    }
+
     @GetMapping("event/commercial/get")
     public List<CommercialEvent> getEventsByTitle(@RequestParam String title) {
         return dbManager.getEventsService().getCommercialEventsByTitle(title);

@@ -20,4 +20,5 @@ public interface IRoomsService {
 
     void saveMessage(Message message);
 
+    void deleteRoom(Room room);
 }

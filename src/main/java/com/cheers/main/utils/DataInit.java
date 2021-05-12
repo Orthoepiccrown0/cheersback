@@ -90,7 +90,7 @@ public class DataInit implements CommandLineRunner {
         event.setId(UUID.randomUUID().toString());
         event.setDescription(description);
         event.setEventDay(new Date());
-        event.setGuests(2);
+        event.setGuests(0);
         event.setMedia(null);
         event.setMaxGuests(10);
         event.setMinGuests(0);
@@ -125,7 +125,7 @@ public class DataInit implements CommandLineRunner {
         event.setId(UUID.randomUUID().toString());
         event.setDescription(description);
         event.setEventDay(new Date());
-        event.setGuests(4);
+        event.setGuests(0);
         event.setMedia(null);
         event.setMaxGuests(14);
         event.setMinGuests(0);

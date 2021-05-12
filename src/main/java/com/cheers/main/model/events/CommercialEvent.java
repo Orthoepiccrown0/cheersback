@@ -3,15 +3,16 @@ package com.cheers.main.model.events;
 import com.cheers.main.model.account.Company;
 import com.cheers.main.model.messaging.Room;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import java.util.List;
 
 @Entity
-public class CommercialEvent extends Event{
+public class CommercialEvent extends Event {
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Room> rooms;
 
     @OneToOne

@@ -80,4 +80,9 @@ public class RoomsService implements IRoomsService {
     public void saveMessage(Message message) {
         messageRepository.save(message);
     }
+
+    @Override
+    public void deleteRoom(Room room) {
+        roomRepository.delete(room);
+    }
 }
