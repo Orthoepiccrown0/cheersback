@@ -8,7 +8,7 @@ import com.cheers.main.model.events.Event;
 import com.cheers.main.model.Question;
 import com.cheers.main.model.Tag;
 import com.cheers.main.model.events.PrivateEvent;
-import com.cheers.main.model.messaging.Room;
+import com.cheers.main.model.messaging.Chat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -34,8 +34,8 @@ public class DataInit implements CommandLineRunner {
     }
 
     private void createTestUnits() {
-        User user = createUser("diego", "concetti", "descri");
-        User user2 = createUser("luca", "lu", "pepepopo check");
+        User user = createUser("diego", "concetti");
+        User user2 = createUser("luca", "lu");
 
         Company company = createCompany("IBRI SRL", "123456");
 
@@ -45,14 +45,7 @@ public class DataInit implements CommandLineRunner {
         createEvent(user, "Titolo dell'evento", "descrizione", true);
         createEvent(user2, "Evento di " + user2.getName(), "descrizione 2", false);
 
-        ArrayList<User> subs = new ArrayList<>();
-        subs.add(user);
-        subs.add(user2);
-
-        ArrayList<Room> rooms = new ArrayList<>();
-        Room stanza = createRoom("stanza nome", "stanza descrizione",subs);
-        rooms.add(stanza);
-        createCommercialEvent(company, "Titolo commerciale", "evento commerciale", false, subs,rooms);
+        createCommercialEvent(company, "Titolo commerciale", "evento commerciale", false);
     }
 
     private void generateTags() {
@@ -66,11 +59,10 @@ public class DataInit implements CommandLineRunner {
         }
     }
 
-    private User createUser(String name, String surname, String bio) {
+    private User createUser(String name, String surname) {
         User user = new User();
         user.setId(UUID.randomUUID().toString());
         user.setName(name);
-        user.setBio(bio);
         user.setSurname(surname);
         user.setEmail("d@gmail.com");
         user.setGender(Gender.Male);
@@ -91,23 +83,7 @@ public class DataInit implements CommandLineRunner {
         company.setAvatar(null);
         company.setpIva(pIva);
         dbManager.getLoginService().saveCompany(company);
-
         return company;
-    }
-
-    private Room createRoom(String name, String description, List<User> members) {
-        Room room = new Room();
-        room.setId(UUID.randomUUID().toString());
-        room.setName(name);
-        room.setDescription(description);
-        room.setImage(null);
-        room.setMembers(members);
-        room.setMaxMembers(4);
-        room.setChat(null);
-        room.setCreated(new Date());
-        dbManager.getRoomsService().saveRoom(room);
-
-        return room;
     }
 
     private Event createEvent(User user, String title, String description, boolean putQuestion) {
@@ -129,6 +105,13 @@ public class DataInit implements CommandLineRunner {
         event.setLat("43.145266");
         event.setLon("13.098231");
 
+        Chat chat = new Chat();
+        chat.setId(UUID.randomUUID().toString());
+        chat.setCreated(new Date());
+        dbManager.getRoomsService().saveChat(chat);
+
+        event.setChat(chat);
+
         dbManager.getEventsService().savePrivateEvent(event);
 
         if (putQuestion) {
@@ -145,7 +128,8 @@ public class DataInit implements CommandLineRunner {
     }
 
 
-    private CommercialEvent createCommercialEvent(Company company, String title, String description, boolean putQuestion, List<User> subs, List<Room> rooms) {
+
+    private CommercialEvent createCommercialEvent(Company company, String title, String description, boolean putQuestion) {
         CommercialEvent event = new CommercialEvent();
         event.setId(UUID.randomUUID().toString());
         event.setDescription(description);
@@ -164,10 +148,6 @@ public class DataInit implements CommandLineRunner {
         event.setAddress("via torino");
         event.setLat("43.145266");
         event.setLon("13.098231");
-
-        event.setSubscribers(subs);
-
-        event.setRooms(rooms);
 
         dbManager.getEventsService().saveCommercialEvent(event);
 
