@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
 @Entity
-public class PrivateEvent extends Event{
+public class PrivateEvent extends Event {
 
     @OneToOne
     private User creator;

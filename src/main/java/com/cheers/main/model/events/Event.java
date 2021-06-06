@@ -55,19 +55,14 @@ public class Event {
 
     private String address;
 
+    @Column(nullable = false)
+    private Boolean deleted = false;
+
     @OneToMany
     private List<Tag> tags;
 
     @ManyToMany
     private List<User> subscribers;
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
 
     public String getId() {
         return id;
@@ -75,14 +70,6 @@ public class Event {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public Media getMedia() {
-        return media;
-    }
-
-    public void setMedia(Media media) {
-        this.media = media;
     }
 
     public String getTitle() {
@@ -101,6 +88,14 @@ public class Event {
         this.description = description;
     }
 
+    public Media getMedia() {
+        return media;
+    }
+
+    public void setMedia(Media media) {
+        this.media = media;
+    }
+
     public Date getStartSubscription() {
         return startSubscription;
     }
@@ -115,6 +110,14 @@ public class Event {
 
     public void setEventDay(Date eventDay) {
         this.eventDay = eventDay;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
     public Integer getGuests() {
@@ -179,6 +182,14 @@ public class Event {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
     }
 
     public List<Tag> getTags() {

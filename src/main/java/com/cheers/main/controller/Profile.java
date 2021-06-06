@@ -3,11 +3,9 @@ package com.cheers.main.controller;
 import com.cheers.main.container.LoginResponse;
 import com.cheers.main.container.SubscribedEventResponse;
 import com.cheers.main.model.Media;
-import com.cheers.main.model.account.Account;
 import com.cheers.main.model.account.Company;
 import com.cheers.main.model.account.User;
 import com.cheers.main.model.events.CommercialEvent;
-import com.cheers.main.model.events.Event;
 import com.cheers.main.model.events.PrivateEvent;
 import com.cheers.main.utils.DBManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController

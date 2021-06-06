@@ -1,14 +1,9 @@
 package com.cheers.main.model.account;
 
 import com.cheers.main.model.enums.Gender;
-import com.cheers.main.model.events.Event;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 public class User extends Account {

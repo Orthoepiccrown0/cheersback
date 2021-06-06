@@ -1,10 +1,9 @@
 package com.cheers.main.controller;
 
+import com.cheers.main.model.Question;
 import com.cheers.main.model.account.Company;
 import com.cheers.main.model.account.User;
 import com.cheers.main.model.events.CommercialEvent;
-import com.cheers.main.model.events.Event;
-import com.cheers.main.model.Question;
 import com.cheers.main.model.events.PrivateEvent;
 import com.cheers.main.utils.DBManager;
 import org.springframework.beans.factory.annotation.Autowired;

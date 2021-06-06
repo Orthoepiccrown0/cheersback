@@ -1,8 +1,7 @@
 package com.cheers.main.service;
 
-import com.cheers.main.model.events.CommercialEvent;
-import com.cheers.main.model.events.Event;
 import com.cheers.main.model.Question;
+import com.cheers.main.model.events.CommercialEvent;
 import com.cheers.main.model.events.PrivateEvent;
 
 import java.util.List;

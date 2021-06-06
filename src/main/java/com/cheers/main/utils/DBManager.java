@@ -1,6 +1,5 @@
 package com.cheers.main.utils;
 
-import com.cheers.main.model.Media;
 import com.cheers.main.service.impl.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

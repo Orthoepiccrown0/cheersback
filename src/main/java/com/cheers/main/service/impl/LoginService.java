@@ -2,7 +2,6 @@ package com.cheers.main.service.impl;
 
 import com.cheers.main.model.account.Company;
 import com.cheers.main.model.account.User;
-import com.cheers.main.model.events.Event;
 import com.cheers.main.repository.CompanyRepository;
 import com.cheers.main.repository.UserRepository;
 import com.cheers.main.service.ILoginService;

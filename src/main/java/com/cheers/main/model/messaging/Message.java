@@ -6,7 +6,6 @@ import com.cheers.main.model.account.User;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import java.util.Comparator;
 import java.util.Date;
 
 @Entity
@@ -64,7 +63,6 @@ public class Message implements Comparable<Message> {
     public void setCommercialSender(Company commercialSender) {
         this.commercialSender = commercialSender;
     }
-
 
     @Override
     public int compareTo(Message o) {

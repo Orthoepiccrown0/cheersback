@@ -1,9 +1,9 @@
 package com.cheers.main.controller;
 
+import com.cheers.main.model.account.Company;
 import com.cheers.main.model.account.User;
 import com.cheers.main.model.messaging.Chat;
 import com.cheers.main.model.messaging.Message;
-import com.cheers.main.service.impl.MessagingService;
 import com.cheers.main.utils.DBManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -44,6 +44,19 @@ public class Messaging {
         msg.setMessage(message);
         msg.setCreated(new Date());
         msg.setPrivateSender(sender);
+        dbManager.getMessagingService().writeMessage(msg, chat);
+        return "ok";
+    }
+
+    @PostMapping("/messaging/chat/send/commercial/message")
+    public String sendCommercialMessage(@RequestParam Chat chat,
+                              @RequestParam String message,
+                              @RequestParam Company sender) {
+        Message msg = new Message();
+        msg.setId(UUID.randomUUID().toString());
+        msg.setMessage(message);
+        msg.setCreated(new Date());
+        msg.setCommercialSender(sender);
         dbManager.getMessagingService().writeMessage(msg, chat);
         return "ok";
     }

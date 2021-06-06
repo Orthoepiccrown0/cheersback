@@ -1,14 +1,12 @@
 package com.cheers.main.controller;
 
 
-import com.cheers.main.model.Media;
 import com.cheers.main.model.account.Company;
 import com.cheers.main.model.account.User;
 import com.cheers.main.model.enums.Gender;
 import com.cheers.main.utils.DBManager;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;

@@ -23,6 +23,9 @@ public class Room {
 
     private Integer membersNum;
 
+    @Column(nullable = false)
+    private Boolean deleted = false;
+
     private Date created;
 
     @OneToOne
@@ -39,6 +42,14 @@ public class Room {
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Media image;
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
+    }
 
     public Company getHost() {
         return host;

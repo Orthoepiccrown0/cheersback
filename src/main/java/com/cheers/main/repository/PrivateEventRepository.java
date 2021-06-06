@@ -11,10 +11,12 @@ import java.util.List;
 @Repository
 public interface PrivateEventRepository extends JpaRepository<PrivateEvent, String> {
 
-    List<PrivateEvent> findAllByCreator(User creator);
+    List<PrivateEvent> findAllByCreatorAndDeleted(User creator, boolean deleted);
 
-    List<PrivateEvent> findAllByEventDay(Date date);
+    List<PrivateEvent> findAllByEventDayAndDeleted(Date date, boolean deleted);
 
-    List<PrivateEvent> findAllByTitleStartsWith(String s);
+    List<PrivateEvent> findAllByTitleStartsWithAndDeleted(String s, boolean deleted);
+
+    List<PrivateEvent> findAllByDeletedOrderByEventDayDesc(boolean deleted);
 
 }

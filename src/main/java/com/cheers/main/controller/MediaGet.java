@@ -1,6 +1,5 @@
 package com.cheers.main.controller;
 
-import org.apache.commons.io.FilenameUtils;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;

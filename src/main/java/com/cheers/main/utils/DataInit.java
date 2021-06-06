@@ -1,14 +1,15 @@
 package com.cheers.main.utils;
 
+import com.cheers.main.model.Question;
+import com.cheers.main.model.Tag;
 import com.cheers.main.model.account.Company;
 import com.cheers.main.model.account.User;
 import com.cheers.main.model.enums.Gender;
 import com.cheers.main.model.events.CommercialEvent;
 import com.cheers.main.model.events.Event;
-import com.cheers.main.model.Question;
-import com.cheers.main.model.Tag;
 import com.cheers.main.model.events.PrivateEvent;
 import com.cheers.main.model.messaging.Chat;
+import com.cheers.main.model.messaging.Room;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -34,18 +35,46 @@ public class DataInit implements CommandLineRunner {
     }
 
     private void createTestUnits() {
-        User user = createUser("diego", "concetti");
-        User user2 = createUser("luca", "lu");
-
-        Company company = createCompany("IBRI SRL", "123456");
-
-
+        List<User> users = createUsers("Diego", "Luca", "Leonardo");
+        List<Company> companies = createCompanies("IBRI SRL", "GALA", "DALLAS");
         generateTags();
+        createPrivateEvents(users);
+        createCommercialEvents(companies);
+    }
 
-        createEvent(user, "Titolo dell'evento", "descrizione", true);
-        createEvent(user2, "Evento di " + user2.getName(), "descrizione 2", false);
+    private void createCommercialEvents(List<Company> companies) {
+        Random random = new Random();
+        for (Company company : companies) {
+            String desc = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus pulvinar blandit " +
+                    "purus in sollicitudin. Nullam ac suscipit tellus. Proin ornare interdum egestas.";
+            createCommercialEvent(company, "Evento commerciale di " + company.getName(), desc,
+                    random.nextBoolean(), random.nextBoolean());
+        }
+    }
 
-        createCommercialEvent(company, "Titolo commerciale", "evento commerciale", false);
+    private void createPrivateEvents(List<User> users) {
+        Random random = new Random();
+        for (User user : users) {
+            String desc = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus pulvinar blandit " +
+                    "purus in sollicitudin. Nullam ac suscipit tellus. Proin ornare interdum egestas.";
+            createEvent(user, "Evento di " + user.getName(), desc, random.nextBoolean());
+        }
+    }
+
+    private List<Company> createCompanies(String... names) {
+        List<Company> users = new ArrayList<>();
+        for (String name : names) {
+            users.add(createCompany(name, "12345678912"));
+        }
+        return users;
+    }
+
+    List<User> createUsers(String... names) {
+        List<User> users = new ArrayList<>();
+        for (String name : names) {
+            users.add(createUser(name, "cognome"));
+        }
+        return users;
     }
 
     private void generateTags() {
@@ -64,7 +93,7 @@ public class DataInit implements CommandLineRunner {
         user.setId(UUID.randomUUID().toString());
         user.setName(name);
         user.setSurname(surname);
-        user.setEmail("d@gmail.com");
+        user.setEmail(name + "@gmail.com");
         user.setGender(Gender.Male);
         user.setPassword("123");
         user.setBirthday(new Date());
@@ -127,27 +156,45 @@ public class DataInit implements CommandLineRunner {
         return event;
     }
 
-
-
-    private CommercialEvent createCommercialEvent(Company company, String title, String description, boolean putQuestion) {
+    private CommercialEvent createCommercialEvent(Company company, String title, String description, boolean putQuestion, boolean putRoom) {
         CommercialEvent event = new CommercialEvent();
         event.setId(UUID.randomUUID().toString());
         event.setDescription(description);
         event.setEventDay(new Date());
         event.setGuests(0);
         event.setMedia(null);
-        event.setMaxGuests(14);
+        event.setMaxGuests(15);
         event.setMinGuests(0);
         event.setPromoted(false);
         event.setStartSubscription(new Date());
         event.setTitle(title);
-        event.setViews(233);
+        event.setViews(200);
         event.setCreatedDate(new Date());
         event.setCreator(company);
-        event.setMaxRooms(4);
+        event.setMaxRooms(10);
         event.setAddress("via torino");
         event.setLat("43.145266");
         event.setLon("13.098231");
+
+        if (putRoom) {
+            Room room = new Room();
+            room.setId(UUID.randomUUID().toString());
+            room.setName("Stanza");
+            room.setCreator(null);
+            room.setHost(company);
+            room.setMaxMembers(10);
+            room.setMembers(new ArrayList<>());
+            room.setDescription("Descrizione della stanza");
+            room.setImage(null);
+
+            Chat chat = new Chat();
+            chat.setId(UUID.randomUUID().toString());
+            chat.setCreated(new Date());
+            dbManager.getRoomsService().saveChat(chat);
+
+            room.setChat(chat);
+            dbManager.getRoomsService().saveRoom(room);
+        }
 
         dbManager.getEventsService().saveCommercialEvent(event);
 
@@ -160,7 +207,6 @@ public class DataInit implements CommandLineRunner {
             question.setAnswer("Esempio risposta");
             dbManager.getQuestionsService().saveQuestion(question);
         }
-
         return event;
     }
 

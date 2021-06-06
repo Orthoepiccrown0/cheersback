@@ -2,6 +2,7 @@ package com.cheers.main.model.account;
 
 import com.cheers.main.model.Media;
 
+import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToOne;
@@ -18,10 +19,21 @@ public class Account {
 
     private String password;
 
+    @Column(nullable = false)
+    private Boolean deleted = false;
+
     @OneToOne
     private Media avatar;
 
     private String bio;
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
+    }
 
     public String getBio() {
         return bio;

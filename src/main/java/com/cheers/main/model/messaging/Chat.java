@@ -1,5 +1,6 @@
 package com.cheers.main.model.messaging;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -16,6 +17,17 @@ public class Chat {
     private List<Message> messages;
 
     private Date created;
+
+    @Column(nullable = false)
+    private Boolean deleted = false;
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
+    }
 
     public Date getCreated() {
         return created;

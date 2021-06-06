@@ -33,13 +33,8 @@ public class Rooms {
 
     @GetMapping("/event/commercial/rooms/delete")
     public String deleteRoom(@RequestParam Room room) {
-        List<CommercialEvent> events = dbManager.getEventsService().getCommercialEvents();
-        for (CommercialEvent e : events) {
-            if (e.getRooms().remove(room))
-                dbManager.getEventsService().saveCommercialEvent(e);
-        }
-
-        dbManager.getRoomsService().deleteRoom(room);
+        room.setDeleted(true);
+        dbManager.getRoomsService().saveRoom(room);
         return "ok";
     }
 

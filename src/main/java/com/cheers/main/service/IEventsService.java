@@ -33,8 +33,6 @@ public interface IEventsService {
 
     void saveCommercialEvent(CommercialEvent event);
 
-    void deleteEvent(Event event);
-
     void subscribeToPrivateEvent(PrivateEvent event, User user);
 
     void subscribeToCommercialEvent(CommercialEvent event, User user);
@@ -42,6 +40,10 @@ public interface IEventsService {
     void unsubscribeFromPrivateEvent(PrivateEvent event, User user);
 
     void unsubscribeFromCommercialEvent(CommercialEvent event, User user);
+
+    boolean deletePrivateEvent(PrivateEvent event);
+
+    boolean deleteCommercialEvent(CommercialEvent event);
 
     PrivateEvent findPrivateEventById(String id);
 

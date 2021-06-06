@@ -1,0 +1,123 @@
+ private const val HOST = "http://192.168.178.22:8080"
+
+    //LOGIN
+    @JvmField val USER_REGISTER_ENDPOINT: Uri =
+        Uri.parse("${HOST}/account/user/signup")
+    @JvmField val COMPANY_REGISTER_ENDPOINT: Uri =
+        Uri.parse("${HOST}/account/commercial/signup")
+    @JvmField val LOGIN_ENDPOINT: Uri =
+        Uri.parse("${HOST}/account/in")
+    @JvmField val ACCOUNT_ENDPOINT: Uri =
+        Uri.parse("${HOST}/account/get")
+
+    //PRIVATE EVENTS
+    @JvmField val ALL_PRIVATE_EVENTS_ENDPOINT: Uri =
+        Uri.parse("${HOST}/event/private/all")
+    @JvmField val NEW_PRIVATE_EVENTS_ENDPOINT: Uri =
+        Uri.parse("${HOST}/event/private/new")
+    @JvmField val PRIVATE_EVENT_TODAY_ENDPOINT: Uri =
+        Uri.parse("${HOST}/event/private/get/today")
+    @JvmField val PRIVATE_EVENT_TODAY_POSITION_ENDPOINT: Uri =
+        Uri.parse("${HOST}/event/private/get/today/position")
+    @JvmField val PRIVATE_EVENT_WEEK_ENDPOINT: Uri =
+        Uri.parse("${HOST}/event/private/get/week")
+    @JvmField val PRIVATE_EVENT_WEEK_POSITION_ENDPOINT: Uri =
+        Uri.parse("${HOST}/event/private/get/week/position")
+    @JvmField val PRIVATE_EVENT_MONTH_ENDPOINT: Uri =
+        Uri.parse("${HOST}/event/private/get/month")
+    @JvmField val PRIVATE_EVENT_MONTH_POSITION_ENDPOINT: Uri =
+        Uri.parse("${HOST}/event/private/get/month/position")
+    @JvmField val PRIVATE_POSITION_EVENTS_ENDPOINT: Uri =
+        Uri.parse("${HOST}/event/private/all/position")
+    @JvmField val PRIVATE_EVENT_SUBSCRIBE_ENDPOINT: Uri =
+        Uri.parse("${HOST}/event/private/subscribe")
+    @JvmField val EVENT_PRIVATE_UNSUBSCRIBE_ENDPOINT: Uri =
+        Uri.parse("${HOST}/event/private/unsubscribe")
+    @JvmField val PRIVATEEVENT_UNSUBSCRIBE_ENDPOINT: Uri =
+        Uri.parse("${HOST}/event/private/delete")
+
+    //COMMERCIAL EVENTS
+    @JvmField val COMMERCIAL_EVENTS_ENDPOINT: Uri =
+        Uri.parse("${HOST}/event/commercial/all")
+    @JvmField val NEW_COMMERCIAL_EVENT_ENDPOINT: Uri =
+        Uri.parse("${HOST}/event/commercial/new")
+
+    @JvmField val COMMERCIAL_EVENT_TODAY_ENDPOINT: Uri =
+        Uri.parse("${HOST}/event/commercial/get/today")
+    @JvmField val COMMERCIAL_EVENT_WEEK_ENDPOINT: Uri =
+        Uri.parse("${HOST}/event/commercial/get/week")
+    @JvmField val COMMERCIAL_EVENT_MONTH_ENDPOINT: Uri =
+        Uri.parse("${HOST}/event/commercial/get/month")
+
+    @JvmField val COMMERCIAL_EVENT_TODAY_POSITION_ENDPOINT: Uri =
+        Uri.parse("${HOST}/event/commercial/get/today/position")
+    @JvmField val COMMERCIAL_EVENT_WEEK_POSITION_ENDPOIN: Uri =
+        Uri.parse("${HOST}/event/commercial/get/week/position")
+    @JvmField val COMMERCIAL_EVENT_MONTH_POSITION_ENDPOINT: Uri =
+        Uri.parse("${HOST}/event/commercial/get/month/position")
+
+    @JvmField val COMMERCIAL_EVENTS_BY_USER_ENDPOINT: Uri =
+        Uri.parse("${HOST}/event/get/company")
+    @JvmField val COMMERCIAL_EVENT_SUBSCRIBE_ENDPOINT: Uri =
+        Uri.parse("${HOST}/event/commercial/subscribe")
+    @JvmField val COMMERCIAL_EVENT_UNSUBSCRIBE_ENDPOINT: Uri =
+        Uri.parse("${HOST}/event/commercial/unsubscribe")
+    @JvmField val GET_COMMERCIAL_EVENT_ENDPOINT: Uri =
+        Uri.parse("${HOST}/event/commercial/get/id")
+
+
+    //PROFILE
+    @JvmField val USER_INFO_ENDPOINT: Uri =
+        Uri.parse("${HOST}/user/get")
+    @JvmField val COMPANY_INFO_ENDPOINT: Uri =
+        Uri.parse("${HOST}/company/get")
+    @JvmField val COMPANY_EDIT_ENDPOINT: Uri =
+        Uri.parse("${HOST}/company/profile/edit")
+    @JvmField val USER_EDIT_ENDPOINT: Uri =
+        Uri.parse("${HOST}/user/profile/edit")
+    @JvmField val MEDIA_UPLOAD_ENDPOINT: Uri =
+        Uri.parse("${HOST}/m/save")
+    @JvmField val GET_MEDIA_ENDPOINT: Uri =
+        Uri.parse("${HOST}/m/get")
+    @JvmField val MEDIA_USER_UPDATE_ENDPOINT: Uri =
+        Uri.parse("${HOST}/user/m/set")
+    @JvmField val EVENTS_BY_USER_ENDPOINT: Uri =
+        Uri.parse("${HOST}/event/get/user")
+    @JvmField val SUBSCRIBED_EVENTS_BY_USER_ENDPOINT: Uri =
+        Uri.parse("${HOST}/event/get/user/subscribed")
+    @JvmField val NEW_PRIVATE_EVENT_ENDPOINT: Uri =
+        Uri.parse("${HOST}/event/private/new")
+
+    //QUESTION
+    @JvmField val GET_QUESTION_N_ANSWER_ENDPOINT: Uri =
+        Uri.parse("${HOST}/questions")
+    @JvmField val GET_UNCOMPLETED_QUESTIONS_ENDPOINT: Uri =
+        Uri.parse("${HOST}/questions/uncompleted")
+    @JvmField val MAKE_NEW_QUESTION_ENDPOINT: Uri =
+        Uri.parse("${HOST}/questions/new")
+    @JvmField val CANCEL_QUESTION_ENDPOINT: Uri =
+        Uri.parse("${HOST}/questions/cancel")
+    @JvmField val ANSWER_QUESTION_ENDPOINT: Uri =
+        Uri.parse("${HOST}/questions/answer")
+    @JvmField val ALL_TAGS_ENDPOINT: Uri =
+        Uri.parse("${HOST}/tags/all")
+
+    @JvmField val CHAT_ENDPOINT: Uri =
+        Uri.parse("${HOST}/messaging/chat")
+    @JvmField val CHAT_SEND_PRIVATE_MESSAGE_ENDPOINT: Uri =
+        Uri.parse("${HOST}/messaging/chat/send/private/message")
+    @JvmField val CHAT_SEND_COMMERCIAL_MESSAGE_ENDPOINT: Uri =
+        Uri.parse("${HOST}/messaging/chat/send/commercial/message")
+    @JvmField val SERVER_STATUS_ENDPOINT: Uri =
+        Uri.parse("${HOST}/server/status")
+
+    @JvmField val NEW_ROOM_ENDPOINT: Uri =
+        Uri.parse("${HOST}/event/commercial/rooms/new")
+    @JvmField val GET_ROOM_ENDPOINT: Uri =
+        Uri.parse("${HOST}/event/commercial/rooms/get")
+    @JvmField val ENTER_ROOM_ENDPOINT: Uri =
+        Uri.parse("${HOST}/event/commercial/rooms/enter")
+    @JvmField val DELETE_ROOM_ENDPOINT: Uri =
+        Uri.parse("${HOST}/event/commercial/rooms/delete")
+    @JvmField val LEAVE_ROOM_ENDPOINT: Uri =
+        Uri.parse("${HOST}/event/commercial/rooms/leave")

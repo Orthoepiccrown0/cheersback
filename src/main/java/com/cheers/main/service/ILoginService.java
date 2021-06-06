@@ -2,7 +2,6 @@ package com.cheers.main.service;
 
 import com.cheers.main.model.account.Company;
 import com.cheers.main.model.account.User;
-import com.cheers.main.model.events.Event;
 
 import java.util.List;
 

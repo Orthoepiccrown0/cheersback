@@ -1,8 +1,7 @@
 package com.cheers.main.service.impl;
 
-import com.cheers.main.model.events.CommercialEvent;
-import com.cheers.main.model.events.Event;
 import com.cheers.main.model.Question;
+import com.cheers.main.model.events.CommercialEvent;
 import com.cheers.main.model.events.PrivateEvent;
 import com.cheers.main.repository.QuestionsRepository;
 import com.cheers.main.service.IQuestionsService;

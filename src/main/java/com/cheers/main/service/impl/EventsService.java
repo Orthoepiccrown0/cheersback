@@ -48,33 +48,33 @@ public class EventsService implements IEventsService {
     @Override
     public List<PrivateEvent> getPrivateEventsByCreatorId(String id) {
         User user = dbManager.getLoginService().findUserById(id);
-        return privateEvents.findAllByCreator(user);
+        return privateEvents.findAllByCreatorAndDeleted(user, false);
     }
 
     @Override
     public List<CommercialEvent> getCommercialEventsByCreatorId(String id) {
         Company company = dbManager.getLoginService().findCompanyById(id);
-        return commercialEvents.findAllByCreator(company);
+        return commercialEvents.findAllByCreatorAndDeleted(company, false);
     }
 
     @Override
     public List<PrivateEvent> getPrivateEventsByDate(Date date) {
-        return privateEvents.findAllByEventDay(date);
+        return privateEvents.findAllByEventDayAndDeleted(date, false);
     }
 
     @Override
     public List<CommercialEvent> getCommercialEventsByDate(Date date) {
-        return commercialEvents.findAllByEventDay(date);
+        return commercialEvents.findAllByEventDayAndDeleted(date, false);
     }
 
     @Override
     public List<PrivateEvent> getPrivateEventsByTitle(String title) {
-        return privateEvents.findAllByTitleStartsWith(title);
+        return privateEvents.findAllByTitleStartsWithAndDeleted(title, false);
     }
 
     @Override
     public List<CommercialEvent> getCommercialEventsByTitle(String title) {
-        return commercialEvents.findAllByTitleStartsWith(title);
+        return commercialEvents.findAllByTitleStartsWithAndDeleted(title, false);
     }
 
     @Override
@@ -99,12 +99,12 @@ public class EventsService implements IEventsService {
 
     @Override
     public List<PrivateEvent> getPrivateEvents() {
-        return privateEvents.findAll(Sort.by(Sort.Direction.DESC, "eventDay"));
+        return privateEvents.findAllByDeletedOrderByEventDayDesc(false);
     }
 
     @Override
     public List<CommercialEvent> getCommercialEvents() {
-        return commercialEvents.findAll(Sort.by(Sort.Direction.DESC, "eventDay"));
+        return commercialEvents.findAllByDeletedOrderByEventDayDesc(false);
     }
 
     @Override
@@ -115,11 +115,6 @@ public class EventsService implements IEventsService {
     @Override
     public void saveCommercialEvent(CommercialEvent event) {
         commercialEvents.save(event);
-    }
-
-    @Override
-    public void deleteEvent(Event event) {
-
     }
 
     @Override
@@ -138,12 +133,30 @@ public class EventsService implements IEventsService {
 
     @Override
     public void unsubscribeFromPrivateEvent(PrivateEvent event, User user) {
-
+        event.getSubscribers().remove(user);
+        event.setGuests(event.getGuests() - 1);
+        privateEvents.save(event);
     }
 
     @Override
     public void unsubscribeFromCommercialEvent(CommercialEvent event, User user) {
+        event.getSubscribers().remove(user);
+        event.setGuests(event.getGuests() - 1);
+        commercialEvents.save(event);
+    }
 
+    @Override
+    public boolean deletePrivateEvent(PrivateEvent event) {
+        event.setDeleted(true);
+        privateEvents.save(event);
+        return true;
+    }
+
+    @Override
+    public boolean deleteCommercialEvent(CommercialEvent event) {
+        event.setDeleted(true);
+        commercialEvents.save(event);
+        return true;
     }
 
     @Override

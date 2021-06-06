@@ -1,7 +1,6 @@
 package com.cheers.main.controller;
 
 import com.cheers.main.model.account.User;
-import com.cheers.main.model.events.Event;
 import com.cheers.main.model.events.PrivateEvent;
 import com.cheers.main.utils.DBManager;
 import com.cheers.main.utils.Helpers;
@@ -24,6 +23,14 @@ public class PrivateEvents {
         this.dbManager = dbManager;
     }
 
+    @GetMapping("event/private/delete")
+    public String deleteEvent(@RequestParam PrivateEvent event) {
+        if (dbManager.getEventsService().deletePrivateEvent(event))
+            return "ok";
+        else
+            return "nok";
+    }
+
     @GetMapping("event/private/get")
     public List<PrivateEvent> getPrivateEventsByTitle(@RequestParam String title) {
         return dbManager.getEventsService().getPrivateEventsByTitle(title);
@@ -43,8 +50,8 @@ public class PrivateEvents {
     }
 
     @PostMapping("event/private/unsubscribe")
-    public void unsubscribeFromEvent(@RequestParam String eventId,
-                                     @RequestParam String userId) {
+    public PrivateEvent unsubscribeFromEvent(@RequestParam String eventId,
+                                             @RequestParam String userId) {
 
         PrivateEvent event = dbManager.getEventsService().findPrivateEventById(eventId);
         User user = dbManager.getLoginService().findUserById(userId);
@@ -52,6 +59,7 @@ public class PrivateEvents {
         if (event.getSubscribers().contains(user)) {
             dbManager.getEventsService().unsubscribeFromPrivateEvent(event, user);
         }
+        return event;
     }
 
     @GetMapping("event/private/get/today")

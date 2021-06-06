@@ -1,7 +1,6 @@
 package com.cheers.main.model;
 
 import com.cheers.main.model.events.CommercialEvent;
-import com.cheers.main.model.events.Event;
 import com.cheers.main.model.events.PrivateEvent;
 
 import javax.persistence.Entity;

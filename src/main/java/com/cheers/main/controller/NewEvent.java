@@ -1,11 +1,11 @@
 package com.cheers.main.controller;
 
 import com.cheers.main.model.Media;
+import com.cheers.main.model.Tag;
 import com.cheers.main.model.account.Company;
 import com.cheers.main.model.account.User;
 import com.cheers.main.model.events.CommercialEvent;
 import com.cheers.main.model.events.PrivateEvent;
-import com.cheers.main.model.Tag;
 import com.cheers.main.model.messaging.Chat;
 import com.cheers.main.utils.DBManager;
 import com.google.gson.Gson;

@@ -6,8 +6,6 @@ import com.cheers.main.service.IMediaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-
 @Service
 public class MediaService implements IMediaService {
 
