@@ -19,4 +19,6 @@ public interface QuestionsRepository extends JpaRepository<Question, String> {
 
     List<Question> findAllByCommercialEventAndAnswerIsNotNull(CommercialEvent event);
 
+    List<Question> findAllByPrivateEvent(PrivateEvent event);
+    List<Question> findAllByCommercialEvent(CommercialEvent event);
 }

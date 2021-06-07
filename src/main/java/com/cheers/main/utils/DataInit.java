@@ -35,11 +35,11 @@ public class DataInit implements CommandLineRunner {
     }
 
     private void createTestUnits() {
-        List<User> users = createUsers("Diego", "Luca", "Leonardo");
-        List<Company> companies = createCompanies("IBRI SRL", "GALA", "DALLAS");
+        List<User> users = createUsers("Diego", "Dmytro" );
+        List<Company> companies = createCompanies("Unicam");
         generateTags();
-        createPrivateEvents(users);
-        createCommercialEvents(companies);
+     //   createPrivateEvents(users);
+        //createCommercialEvents(companies);
     }
 
     private void createCommercialEvents(List<Company> companies) {
@@ -72,7 +72,7 @@ public class DataInit implements CommandLineRunner {
     List<User> createUsers(String... names) {
         List<User> users = new ArrayList<>();
         for (String name : names) {
-            users.add(createUser(name, "cognome"));
+            users.add(createUser(name, "Studenti"));
         }
         return users;
     }
@@ -130,7 +130,7 @@ public class DataInit implements CommandLineRunner {
         event.setViews(233);
         event.setCreatedDate(new Date());
         event.setCreator(user);
-        event.setAddress("via milano");
+        event.setAddress("Camerino");
         event.setLat("43.145266");
         event.setLon("13.098231");
 
@@ -172,7 +172,7 @@ public class DataInit implements CommandLineRunner {
         event.setCreatedDate(new Date());
         event.setCreator(company);
         event.setMaxRooms(10);
-        event.setAddress("via torino");
+        event.setAddress("Camerino");
         event.setLat("43.145266");
         event.setLon("13.098231");
 

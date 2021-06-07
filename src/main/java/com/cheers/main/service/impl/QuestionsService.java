@@ -35,12 +35,12 @@ public class QuestionsService implements IQuestionsService {
 
     @Override
     public List<Question> findAllQuestionsByEvent(PrivateEvent event) {
-        return null;
+        return questionsRepository.findAllByPrivateEvent(event);
     }
 
     @Override
     public List<Question> findAllQuestionsByEvent(CommercialEvent event) {
-        return null;
+        return questionsRepository.findAllByCommercialEvent(event);
     }
 
 
