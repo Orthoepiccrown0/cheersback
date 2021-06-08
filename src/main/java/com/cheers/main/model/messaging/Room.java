@@ -34,7 +34,7 @@ public class Room {
     @OneToOne
     private Company host;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy="id",cascade = CascadeType.DETACH)
     private List<User> members;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
