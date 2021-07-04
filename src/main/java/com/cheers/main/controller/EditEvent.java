@@ -41,6 +41,7 @@ public class EditEvent {
         event.setLat(lat);
         event.setLon(lon);
 
+
         event.setAddress(address);
 
         dbManager.getEventsService().savePrivateEvent(event);
