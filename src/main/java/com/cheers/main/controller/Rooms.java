@@ -85,11 +85,11 @@ public class Rooms {
     }
 
     @GetMapping("/event/commercial/rooms/enter")
-    public String enterRoom(@RequestParam User user,
-                            @RequestParam Room room) {
+    public Room enterRoom(@RequestParam User user,
+                          @RequestParam Room room) {
         room.getMembers().add(user);
         dbManager.getRoomsService().saveRoom(room);
-        return "ok";
+        return room;
     }
 
 }

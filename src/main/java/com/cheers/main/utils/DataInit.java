@@ -28,9 +28,8 @@ public class DataInit implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        if (dbManager.getLoginService().getAll().size() == 0) {
+        if (dbManager.getEventsService().getCommercialEvents().size() == 0) {
             createTestUnits();
-
         }
     }
 
@@ -38,8 +37,8 @@ public class DataInit implements CommandLineRunner {
         List<User> users = createUsers("Diego", "Dmytro" );
         List<Company> companies = createCompanies("Unicam");
         generateTags();
-     //   createPrivateEvents(users);
-        //createCommercialEvents(companies);
+        createPrivateEvents(users);
+        createCommercialEvents(companies);
     }
 
     private void createCommercialEvents(List<Company> companies) {
