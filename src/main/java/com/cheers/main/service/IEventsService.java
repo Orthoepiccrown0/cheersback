@@ -5,6 +5,7 @@ import com.cheers.main.model.account.User;
 import com.cheers.main.model.events.CommercialEvent;
 import com.cheers.main.model.events.Event;
 import com.cheers.main.model.events.PrivateEvent;
+import com.cheers.main.model.events.SubscribeRequest;
 
 import java.util.Date;
 import java.util.List;
@@ -35,6 +36,12 @@ public interface IEventsService {
 
     void subscribeToPrivateEvent(PrivateEvent event, User user);
 
+    List<SubscribeRequest> findAllSubRequestsByEvent(PrivateEvent event);
+
+    void saveSubscribeRequest(SubscribeRequest subRequest);
+
+    void cancelSubscribeRequest(SubscribeRequest subRequest);
+
     void subscribeToCommercialEvent(CommercialEvent event, User user);
 
     void unsubscribeFromPrivateEvent(PrivateEvent event, User user);
@@ -48,4 +55,6 @@ public interface IEventsService {
     PrivateEvent findPrivateEventById(String id);
 
     CommercialEvent findCommercialEventById(String id);
+
+    SubscribeRequest findSubscribeRequestById(String id);
 }

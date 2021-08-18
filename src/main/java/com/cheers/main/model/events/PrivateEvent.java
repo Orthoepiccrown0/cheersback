@@ -15,6 +15,16 @@ public class PrivateEvent extends Event {
     @OneToOne
     private Chat chat;
 
+    private Boolean isPrivate;
+
+    public Boolean getPrivate() {
+        return isPrivate;
+    }
+
+    public void setPrivate(Boolean aPrivate) {
+        isPrivate = aPrivate;
+    }
+
     public User getCreator() {
         return creator;
     }

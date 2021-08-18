@@ -8,6 +8,7 @@ import com.cheers.main.model.enums.Gender;
 import com.cheers.main.model.events.CommercialEvent;
 import com.cheers.main.model.events.Event;
 import com.cheers.main.model.events.PrivateEvent;
+import com.cheers.main.model.events.SubscribeRequest;
 import com.cheers.main.model.messaging.Chat;
 import com.cheers.main.model.messaging.Room;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,7 @@ public class DataInit implements CommandLineRunner {
         generateTags();
         createPrivateEvents(users);
         createCommercialEvents(companies);
+
     }
 
     private void createCommercialEvents(List<Company> companies) {
@@ -77,9 +79,28 @@ public class DataInit implements CommandLineRunner {
     }
 
     private void generateTags() {
-        String[] tags = {"Pop", "Sport", "Musica", "Rap", "Rock", "Nerds", "PC", "Fotografia", "Discoteca", "Alcol",
-                "Arte", "Crossfit", "Ciclismo", "Politica", "Gaming", "Cinema", "Yoga", "Vegan", "Volontariato", "Calcio",
-                "Basket", "Cibo", "Festa", "Auto", "Moto", "Working out", "Festivale"};
+        String[] tags = {
+                "Sport",
+                "Teatro e Cinema",
+                "Business e Commerciali",
+                "Pranzi, Cene, Aperitivi, Bar",
+                "Party e Disco",
+                "Passeggiata",
+                "Politica",
+                "Educativi e Studio",
+                "Raduni e Manifestazioni",
+                "Arte e Mostre",
+                "Intrattenimento, Giochi e Svago",
+                "Fiere",
+                "Meeting e Convention",
+                "Beneficienza e raccolte fondi",
+                "Concerti e Musica",
+                "Shopping",
+                "Viaggio e Spostamenti",
+                "Concorsi",
+                "Conosciamoci e Chiacchiere",
+                "Altro"
+        };
         for (String tag : tags) {
             Tag t = new Tag();
             t.setName(tag);
@@ -130,8 +151,10 @@ public class DataInit implements CommandLineRunner {
         event.setCreatedDate(new Date());
         event.setCreator(user);
         event.setAddress("Camerino");
+        event.setCity("Citta epica");
         event.setLat("43.145266");
         event.setLon("13.098231");
+        event.setPrivate(false);
 
         Chat chat = new Chat();
         chat.setId(UUID.randomUUID().toString());
@@ -172,6 +195,7 @@ public class DataInit implements CommandLineRunner {
         event.setCreator(company);
         event.setMaxRooms(10);
         event.setAddress("Camerino");
+        event.setCity("Citta aziend");
         event.setLat("43.145266");
         event.setLon("13.098231");
 

@@ -2,6 +2,7 @@ package com.cheers.main.controller;
 
 import com.cheers.main.model.account.User;
 import com.cheers.main.model.events.PrivateEvent;
+import com.cheers.main.model.events.SubscribeRequest;
 import com.cheers.main.utils.DBManager;
 import com.cheers.main.utils.Helpers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,11 @@ public class PrivateEvents {
     }
 
     @GetMapping("event/private/get")
+    public PrivateEvent getPrivateEventById(@RequestParam String eventId) {
+        return dbManager.getEventsService().findPrivateEventById(eventId);
+    }
+
+    @GetMapping("event/private/get/title")
     public List<PrivateEvent> getPrivateEventsByTitle(@RequestParam String title) {
         return dbManager.getEventsService().getPrivateEventsByTitle(title);
     }
@@ -43,10 +49,57 @@ public class PrivateEvents {
         PrivateEvent event = dbManager.getEventsService().findPrivateEventById(eventId);
         User user = dbManager.getLoginService().findUserById(userId);
 
-        if (!event.getSubscribers().contains(user)) {
+        if (event.getPrivate()) {
+            SubscribeRequest s = new SubscribeRequest();
+            s.setId(UUID.randomUUID().toString());
+            s.setAccepted(false);
+            s.setPrivateEvent(event);
+            s.setUser(user);
+            dbManager.getEventsService().saveSubscribeRequest(s);
+            return event;
+        } else if (!event.getSubscribers().contains(user)) {
             dbManager.getEventsService().subscribeToPrivateEvent(event, user);
         }
+
         return event;
+    }
+
+    @PostMapping("event/private/subrequest/accept")
+    public String AcceptSubscribeRequest(
+            @RequestParam String subRequestId,
+            @RequestParam Boolean isAccepted) {
+
+        SubscribeRequest subRequest = dbManager.getEventsService().findSubscribeRequestById(subRequestId);
+        PrivateEvent event = subRequest.getPrivateEvent();
+        User user = subRequest.getUser();
+
+        if (isAccepted) {
+            if (!event.getSubscribers().contains(user)) {
+                subRequest.setAccepted(true);
+                dbManager.getEventsService().subscribeToPrivateEvent(event, user);
+                return "ok";
+            }
+        } else {
+            dbManager.getEventsService().cancelSubscribeRequest(subRequest);
+            return "declined";
+        }
+
+        return null;
+    }
+
+    @GetMapping("event/private/subrequests")
+    public List<SubscribeRequest> getSubscribeRequests(String userId) {
+        User user = dbManager.getLoginService().findUserById(userId);
+        List<SubscribeRequest> subscribeRequestList = new ArrayList<>();
+
+        if (user != null) {
+            List<PrivateEvent> privateEvents = dbManager.getEventsService().getPrivateEventsByCreatorId(userId);
+            for (PrivateEvent event : privateEvents) {
+                subscribeRequestList.addAll(dbManager.getEventsService().findAllSubRequestsByEvent(event));
+            }
+        }
+        //filtr
+        return subscribeRequestList;
     }
 
     @PostMapping("event/private/unsubscribe")

@@ -6,8 +6,10 @@ import com.cheers.main.model.account.User;
 import com.cheers.main.model.events.CommercialEvent;
 import com.cheers.main.model.events.Event;
 import com.cheers.main.model.events.PrivateEvent;
+import com.cheers.main.model.events.SubscribeRequest;
 import com.cheers.main.repository.CommercialEventRepository;
 import com.cheers.main.repository.PrivateEventRepository;
+import com.cheers.main.repository.SubscribeRequestRepository;
 import com.cheers.main.service.IEventsService;
 import com.cheers.main.utils.DBManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,9 @@ public class EventsService implements IEventsService {
     @Qualifier
     private CommercialEventRepository commercialEvents;
 
+    @Qualifier
+    private SubscribeRequestRepository subscribeRequests;
+
     @Autowired
     public void setDbManager(DBManager dbManager) {
         this.dbManager = dbManager;
@@ -43,6 +48,11 @@ public class EventsService implements IEventsService {
     @Autowired
     public void setCommercialEvents(CommercialEventRepository commercialEvents) {
         this.commercialEvents = commercialEvents;
+    }
+
+    @Autowired
+    public void setSubscribeRequests(SubscribeRequestRepository subscribeRequests) {
+        this.subscribeRequests = subscribeRequests;
     }
 
     @Override
@@ -122,6 +132,26 @@ public class EventsService implements IEventsService {
         event.getSubscribers().add(user);
         event.setGuests(event.getGuests() + 1);
         privateEvents.save(event);
+    }
+
+    @Override
+    public List<SubscribeRequest> findAllSubRequestsByEvent(PrivateEvent event) {
+        return subscribeRequests.findAllByPrivateEvent(event);
+    }
+
+    @Override
+    public void saveSubscribeRequest(SubscribeRequest subRequest) {
+        subscribeRequests.save(subRequest);
+    }
+
+    @Override
+    public SubscribeRequest findSubscribeRequestById(String id) {
+        return subscribeRequests.findById(id).orElse(null);
+    }
+
+    @Override
+    public void cancelSubscribeRequest(SubscribeRequest subRequest) {
+        subscribeRequests.delete(subRequest);
     }
 
     @Override

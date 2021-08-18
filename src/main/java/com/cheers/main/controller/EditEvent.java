@@ -1,5 +1,6 @@
 package com.cheers.main.controller;
 
+import com.cheers.main.model.Media;
 import com.cheers.main.model.events.CommercialEvent;
 import com.cheers.main.model.events.PrivateEvent;
 import com.cheers.main.utils.DBManager;
@@ -30,7 +31,10 @@ public class EditEvent {
                                      String lat,
                                      String lon,
                                      String address,
-                                     String eventId
+                                     String city,
+                                     Boolean isPrivate,
+                                     String eventId,
+                                     Media media
     ) throws ParseException {
         PrivateEvent event = dbManager.getEventsService().findPrivateEventById(eventId);
 
@@ -40,9 +44,13 @@ public class EditEvent {
         event.setMaxGuests(maxSubscribers);
         event.setLat(lat);
         event.setLon(lon);
-
-
         event.setAddress(address);
+        event.setCity(city);
+        event.setPrivate(isPrivate);
+
+        if (media != null && media.getUrl() != null) {
+            event.setMedia(media);
+        }
 
         dbManager.getEventsService().savePrivateEvent(event);
         return "ok";
@@ -56,7 +64,10 @@ public class EditEvent {
                                         String lat,
                                         String lon,
                                         String address,
-                                        String eventId) throws ParseException {
+                                        String city,
+                                        String eventId,
+                                        Media media
+    ) throws ParseException {
         CommercialEvent event = dbManager.getEventsService().findCommercialEventById(eventId);
 
         event.setDescription(description);
@@ -65,8 +76,12 @@ public class EditEvent {
         event.setMaxGuests(maxSubscribers);
         event.setLat(lat);
         event.setLon(lon);
-
         event.setAddress(address);
+        event.setCity(city);
+
+        if (media != null && media.getUrl() != null) {
+            event.setMedia(media);
+        }
 
         dbManager.getEventsService().saveCommercialEvent(event);
         return "ok";

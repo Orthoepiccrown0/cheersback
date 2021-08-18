@@ -55,6 +55,8 @@ public class Event {
 
     private String address;
 
+    private String city;
+
     @Column(nullable = false)
     private Boolean deleted = false;
 
@@ -183,6 +185,10 @@ public class Event {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    public String getCity() { return city; }
+
+    public void setCity(String city) { this.city = city; }
 
     public Boolean getDeleted() {
         return deleted;

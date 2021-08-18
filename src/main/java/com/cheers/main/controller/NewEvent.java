@@ -40,8 +40,10 @@ public class NewEvent {
                                    String lat,
                                    String lon,
                                    String address,
+                                   String city,
                                    String userid,
                                    String tags,
+                                   Boolean isPrivate,
                                    Media media
     ) throws ParseException {
         User privateCreator = dbManager.getLoginService().findUserById(userid);
@@ -60,6 +62,8 @@ public class NewEvent {
         event.setLon(lon);
         event.setCreatedDate(new Date());
         event.setAddress(address);
+        event.setCity(city);
+        event.setPrivate(isPrivate);
 
         if (media != null)
             if (media.getId() != null)
@@ -92,6 +96,7 @@ public class NewEvent {
                                    String lat,
                                    String lon,
                                    String address,
+                                   String city,
                                    String userid,
                                    String tags,
                                    Media media
@@ -112,6 +117,7 @@ public class NewEvent {
         event.setLon(lon);
         event.setCreatedDate(new Date());
         event.setAddress(address);
+        event.setCity(city);
 
         if (media != null) {
             event.setMedia(media);
