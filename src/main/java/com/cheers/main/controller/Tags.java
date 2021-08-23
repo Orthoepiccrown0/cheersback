@@ -21,8 +21,7 @@ public class Tags {
 
     @GetMapping("/tags/all")
     public List<Tag> getAllTags() {
-        List<Tag> tags = dbManager.getTagsService().getAllTags();
-        Collections.shuffle(tags);
-        return tags;
+        // Collections.shuffle(tags);
+        return dbManager.getTagsService().getAllTags();
     }
 }

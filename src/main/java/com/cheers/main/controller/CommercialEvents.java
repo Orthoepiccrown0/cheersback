@@ -24,7 +24,7 @@ public class CommercialEvents {
     }
 
     @GetMapping("/event/commercial/delete")
-    public String deleteEvent(@RequestParam CommercialEvent event){
+    public String deleteEvent(@RequestParam CommercialEvent event) {
         if (dbManager.getEventsService().deleteCommercialEvent(event))
             return "ok";
         else
@@ -199,6 +199,16 @@ public class CommercialEvents {
             }
         }
         return closestEvents;
+    }
+
+    @GetMapping("event/commercial/all/position")
+    private List<CommercialEvent> getAllEvents(@RequestParam String lat,
+                                               @RequestParam String lon,
+                                               @RequestParam Integer distanceInM) {
+        return getCloseEvents(dbManager.getEventsService().getCommercialEvents(),
+                Double.parseDouble(lat),
+                Double.parseDouble(lon),
+                distanceInM);
     }
 
     @GetMapping("/event/commercial/all")

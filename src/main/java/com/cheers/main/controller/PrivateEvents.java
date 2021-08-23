@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 public class PrivateEvents {
@@ -90,16 +91,16 @@ public class PrivateEvents {
     @GetMapping("event/private/subrequests")
     public List<SubscribeRequest> getSubscribeRequests(String userId) {
         User user = dbManager.getLoginService().findUserById(userId);
-        List<SubscribeRequest> subscribeRequestList = new ArrayList<>();
+        List<SubscribeRequest> subReqList = new ArrayList<>();
 
         if (user != null) {
             List<PrivateEvent> privateEvents = dbManager.getEventsService().getPrivateEventsByCreatorId(userId);
             for (PrivateEvent event : privateEvents) {
-                subscribeRequestList.addAll(dbManager.getEventsService().findAllSubRequestsByEvent(event));
+                subReqList.addAll(dbManager.getEventsService().findAllSubRequestsByEvent(event));
             }
         }
-        //filtr
-        return subscribeRequestList;
+
+        return subReqList.stream().filter(s -> !s.getAccepted()).collect(Collectors.toList());
     }
 
     @PostMapping("event/private/unsubscribe")
