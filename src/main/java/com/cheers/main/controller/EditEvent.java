@@ -61,6 +61,7 @@ public class EditEvent {
                                         String startDate,
                                         String eventDate,
                                         Integer maxSubscribers,
+                                        Integer maxRooms,
                                         String lat,
                                         String lon,
                                         String address,
@@ -74,6 +75,7 @@ public class EditEvent {
         event.setStartSubscription(dateFormat.parse(startDate));
         event.setEventDay(dateFormat.parse(eventDate));
         event.setMaxGuests(maxSubscribers);
+        event.setMaxRooms(maxRooms);
         event.setLat(lat);
         event.setLon(lon);
         event.setAddress(address);
