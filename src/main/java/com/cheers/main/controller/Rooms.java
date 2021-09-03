@@ -84,11 +84,17 @@ public class Rooms {
         return "ok";
     }
 
-    @GetMapping("/event/commercial/rooms/enter")
-    public Room enterRoom(@RequestParam User user,
-                          @RequestParam Room room) {
-        room.getMembers().add(user);
-        dbManager.getRoomsService().saveRoom(room);
+    @PostMapping("event/commercial/rooms/enter")
+    public Room enterRoom(@RequestParam String userId,
+                          @RequestParam String roomId) {
+
+        User user = dbManager.getLoginService().findUserById(userId);
+        Room room = dbManager.getRoomsService().findRoomById(roomId);
+
+        if (!room.getMembers().contains(user)) {
+            dbManager.getRoomsService().enterRoom(room, user);
+        }
+
         return room;
     }
 

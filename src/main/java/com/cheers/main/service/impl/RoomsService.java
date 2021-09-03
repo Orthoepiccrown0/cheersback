@@ -1,5 +1,6 @@
 package com.cheers.main.service.impl;
 
+import com.cheers.main.model.account.User;
 import com.cheers.main.model.events.CommercialEvent;
 import com.cheers.main.model.messaging.Chat;
 import com.cheers.main.model.messaging.Message;
@@ -57,7 +58,7 @@ public class RoomsService implements IRoomsService {
     }
 
     @Override
-    public Room getRoom(String id) {
+    public Room findRoomById(String id) {
         return roomRepository.findById(id).orElse(null);
     }
 
@@ -85,4 +86,18 @@ public class RoomsService implements IRoomsService {
     public void deleteRoom(Room room) {
         roomRepository.delete(room);
     }
+
+    @Override
+    public void enterRoom(Room room, User user) {
+        room.getMembers().add(user);
+
+        if (room.getMembersNum() == null)
+            room.setMembersNum(1);
+        else
+            room.setMembersNum(room.getMembersNum() + 1);
+
+        roomRepository.save(room);
+    }
+
+
 }

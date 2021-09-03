@@ -1,5 +1,6 @@
 package com.cheers.main.service;
 
+import com.cheers.main.model.account.User;
 import com.cheers.main.model.messaging.Chat;
 import com.cheers.main.model.messaging.Message;
 import com.cheers.main.model.messaging.Room;
@@ -10,7 +11,7 @@ public interface IRoomsService {
 
     List<Room> getRooms(String eventId);
 
-    Room getRoom(String id);
+    Room findRoomById(String id);
 
     Chat getChat(String id);
 
@@ -21,4 +22,6 @@ public interface IRoomsService {
     void saveMessage(Message message);
 
     void deleteRoom(Room room);
+
+    void enterRoom(Room room, User user);
 }
