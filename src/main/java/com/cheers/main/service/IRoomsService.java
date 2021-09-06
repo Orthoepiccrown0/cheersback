@@ -24,4 +24,6 @@ public interface IRoomsService {
     void deleteRoom(Room room);
 
     void enterRoom(Room room, User user);
+
+    void leaveRoom(Room room, User user);
 }

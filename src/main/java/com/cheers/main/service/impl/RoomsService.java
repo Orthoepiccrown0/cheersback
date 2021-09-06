@@ -90,14 +90,15 @@ public class RoomsService implements IRoomsService {
     @Override
     public void enterRoom(Room room, User user) {
         room.getMembers().add(user);
-
-        if (room.getMembersNum() == null)
-            room.setMembersNum(1);
-        else
-            room.setMembersNum(room.getMembersNum() + 1);
-
+        room.setMembersNum(room.getMembersNum() + 1);
         roomRepository.save(room);
     }
 
+    @Override
+    public void leaveRoom(Room room, User user) {
+        room.getMembers().remove(user);
+        room.setMembersNum(room.getMembersNum() - 1);
+        roomRepository.save(room);
+    }
 
 }

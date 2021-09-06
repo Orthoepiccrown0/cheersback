@@ -38,14 +38,6 @@ public class Rooms {
         return "ok";
     }
 
-    @GetMapping("/event/commercial/rooms/leave")
-    public String leaveRoom(@RequestParam Room room,
-                            @RequestParam User user) {
-        room.getMembers().remove(user);
-        dbManager.getRoomsService().saveRoom(room);
-        return "ok";
-    }
-
     @PostMapping("/event/commercial/rooms/new")
     public String createRoom(
             @RequestParam String eventId,
@@ -66,6 +58,7 @@ public class Rooms {
         room.setHost(event.getCreator());
         room.setCreator(creator);
         room.setMaxMembers(maxMembers);
+        room.setMembersNum(1);
         room.addMember(creator);
         if (media != null) {
             if ((media.getId() != null))
@@ -94,8 +87,23 @@ public class Rooms {
         if (!room.getMembers().contains(user)) {
             dbManager.getRoomsService().enterRoom(room, user);
         }
-
         return room;
     }
+
+
+    @PostMapping("event/commercial/rooms/leave")
+    public String leaveRoom(@RequestParam String userId,
+                            @RequestParam String roomId) {
+
+        User user = dbManager.getLoginService().findUserById(userId);
+        Room room = dbManager.getRoomsService().findRoomById(roomId);
+
+        if (room.getMembers().contains(user)) {
+            dbManager.getRoomsService().leaveRoom(room, user);
+            return "ok";
+        }
+        return "nok";
+    }
+
 
 }
