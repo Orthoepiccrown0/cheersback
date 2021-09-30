@@ -1,11 +1,14 @@
 package com.cheers.main.controller;
 
 
+import com.cheers.main.model.Achievement;
 import com.cheers.main.model.account.Company;
 import com.cheers.main.model.account.User;
+import com.cheers.main.model.enums.AchievementType;
 import com.cheers.main.model.enums.Gender;
 import com.cheers.main.utils.DBManager;
 import com.google.gson.Gson;
+import org.hibernate.hql.spi.id.cte.AbstractCteValuesListBulkIdHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,12 +16,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.UUID;
 
 @RestController
 public class Signup {
 
     private DBManager dbManager;
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
     @Autowired
     public void setDbManager(DBManager dbManager) {
@@ -35,6 +42,8 @@ public class Signup {
         if (isEmailUsed(email))
             return "email occupata";
 
+        String now = sdf.format(new Date());
+
         User user = new User();
         user.setBio("");
         user.setId(UUID.randomUUID().toString());
@@ -42,9 +51,10 @@ public class Signup {
         user.setSurname(surname);
         user.setEmail(email);
         user.setPassword(password);
-        user.setBirthday(new SimpleDateFormat("dd/MM/yyyy").parse(birthday)); //format: dd/MM/yyyy
+        user.setBirthday(sdf.parse(birthday)); //format: dd/MM/yyyy
         user.setGender(Gender.valueOf(gender));
-
+        user.setSignUpDate(sdf.parse(now));
+        user.setNumOfEvents(0);
         dbManager.getLoginService().saveUser(user);
         return new Gson().toJson(user);
     }
@@ -61,6 +71,9 @@ public class Signup {
         if (isEmailUsed(email))
             return "email occupata";
 
+        String now = sdf.format(new Date());
+
+
         Company company = new Company();
         company.setBio("");
         company.setId(UUID.randomUUID().toString());
@@ -68,6 +81,8 @@ public class Signup {
         company.setEmail(email);
         company.setpIva(pIva);
         company.setPassword(password);
+        company.setNumOfEvents(0);
+        company.setSignUpDate(sdf.parse(now));
 
         dbManager.getLoginService().saveCompany(company);
         return new Gson().toJson(company);

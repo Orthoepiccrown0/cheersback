@@ -76,6 +76,7 @@ public class NewEvent {
         }
 
         event.setCreator(privateCreator);
+        privateCreator.setNumOfEvents(privateCreator.getNumOfEvents() + 1);
 
         Chat chat = new Chat();
         chat.setId(UUID.randomUUID().toString());
@@ -130,6 +131,7 @@ public class NewEvent {
         }
 
         event.setCreator(company);
+        company.setNumOfEvents(company.getNumOfEvents() + 1);
 
         Chat chat = new Chat();
         chat.setId(UUID.randomUUID().toString());

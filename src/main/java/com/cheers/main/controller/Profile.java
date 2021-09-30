@@ -2,9 +2,11 @@ package com.cheers.main.controller;
 
 import com.cheers.main.container.LoginResponse;
 import com.cheers.main.container.SubscribedEventResponse;
+import com.cheers.main.model.Achievement;
 import com.cheers.main.model.Media;
 import com.cheers.main.model.account.Company;
 import com.cheers.main.model.account.User;
+import com.cheers.main.model.enums.AchievementType;
 import com.cheers.main.model.events.CommercialEvent;
 import com.cheers.main.model.events.PrivateEvent;
 import com.cheers.main.utils.DBManager;
@@ -14,7 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.*;
 
 @RestController
 public class Profile {
@@ -101,6 +103,27 @@ public class Profile {
     public List<SubscribedEventResponse> getSubscribedEvents(@RequestParam String id) {
         User user = dbManager.getLoginService().findUserById(id);
         return dbManager.getEventsService().getSubscribedEvents(user);
+    }
+
+    @GetMapping("user/get/achivements")
+    public List<Achievement> getUserAchivements(@RequestParam String userId) {
+        User user = dbManager.getLoginService().findUserById(userId);
+        int numOfSubscriptions = getSubscribedEvents(user.getId()).size();
+        Date now = new Date();
+
+        dbManager.getAchievementService().unlockAchievement(AchievementType.IBRER);
+
+        if (user.getNumOfEvents() >= 20)
+            dbManager.getAchievementService().unlockAchievement(AchievementType.Creatore);
+
+        if (numOfSubscriptions >= 20)
+            dbManager.getAchievementService().unlockAchievement(AchievementType.Avventurierio);
+
+        if ((now.getYear() - user.getSignUpDate().getYear()) == 1)
+            dbManager.getAchievementService().unlockAchievement(AchievementType.Veterano);
+
+
+        return dbManager.getAchievementService().getAllAchievements();
     }
 
 

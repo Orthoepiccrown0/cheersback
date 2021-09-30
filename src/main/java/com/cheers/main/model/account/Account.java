@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToOne;
+import java.util.Date;
 
 @MappedSuperclass
 public class Account {
@@ -26,6 +27,10 @@ public class Account {
     private Media avatar;
 
     private String bio;
+
+    private Integer numOfEvents;
+
+    private Date signUpDate;
 
     public Boolean getDeleted() {
         return deleted;
@@ -81,5 +86,21 @@ public class Account {
 
     public void setAvatar(Media avatar) {
         this.avatar = avatar;
+    }
+
+    public Integer getNumOfEvents() {
+        return numOfEvents;
+    }
+
+    public void setNumOfEvents(Integer numOfEvents) {
+        this.numOfEvents = numOfEvents;
+    }
+
+    public Date getSignUpDate() {
+        return signUpDate;
+    }
+
+    public void setSignUpDate(Date signUpDate) {
+        this.signUpDate = signUpDate;
     }
 }

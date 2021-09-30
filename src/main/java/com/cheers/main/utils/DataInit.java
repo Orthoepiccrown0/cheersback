@@ -1,14 +1,15 @@
 package com.cheers.main.utils;
 
+import com.cheers.main.model.Achievement;
 import com.cheers.main.model.Question;
 import com.cheers.main.model.Tag;
 import com.cheers.main.model.account.Company;
 import com.cheers.main.model.account.User;
+import com.cheers.main.model.enums.AchievementType;
 import com.cheers.main.model.enums.Gender;
 import com.cheers.main.model.events.CommercialEvent;
 import com.cheers.main.model.events.Event;
 import com.cheers.main.model.events.PrivateEvent;
-import com.cheers.main.model.events.SubscribeRequest;
 import com.cheers.main.model.messaging.Chat;
 import com.cheers.main.model.messaging.Room;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,12 +36,13 @@ public class DataInit implements CommandLineRunner {
     }
 
     private void createTestUnits() {
-        List<User> users = createUsers("Diego", "Dmytro" );
+        List<User> users = createUsers("Diego", "Dmytro");
         List<Company> companies = createCompanies("Unicam");
         generateTags();
+        generateAchivements();
+
         createPrivateEvents(users);
         createCommercialEvents(companies);
-
     }
 
     private void createCommercialEvents(List<Company> companies) {
@@ -231,6 +233,28 @@ public class DataInit implements CommandLineRunner {
             dbManager.getQuestionsService().saveQuestion(question);
         }
         return event;
+    }
+
+    private void generateAchivements() {
+        String[] description = {
+                "Benvenuto su Ibri",
+                "Hai creato 20 eventi",
+                "Hai partecipato a 20 eventi",
+                "Fai parte di Ibri da almeno un anno",
+                "Hai creato 10 eventi di diversa categoria"
+        };
+
+        int i = 0;
+        for (AchievementType title : AchievementType.values()) {
+            Achievement a = new Achievement();
+            a.setId(UUID.randomUUID().toString());
+            a.setTitle(title);
+            a.setDescription(description[i]);
+            a.setImage(null);
+            a.setUnlocked(false);
+            i++;
+            dbManager.getAchievementService().saveAchievement(a);
+        }
     }
 
 }

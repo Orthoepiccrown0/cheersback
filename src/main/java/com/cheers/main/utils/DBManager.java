@@ -21,6 +21,8 @@ public class DBManager {
 
     private MessagingService messagingService;
 
+    private AchievementService achievementService;
+
     public MessagingService getMessagingService() {
         return messagingService;
     }
@@ -82,5 +84,14 @@ public class DBManager {
     @Autowired
     public void setEventsService(EventsService eventsService) {
         this.eventsService = eventsService;
+    }
+
+    public AchievementService getAchievementService() {
+        return achievementService;
+    }
+
+    @Autowired
+    public void setAchievementService(AchievementService achievementService) {
+        this.achievementService = achievementService;
     }
 }
