@@ -60,7 +60,7 @@ public class Event {
     @Column(nullable = false)
     private Boolean deleted = false;
 
-    @OneToMany
+    @ManyToMany
     private List<Tag> tags;
 
     @ManyToMany
@@ -186,9 +186,13 @@ public class Event {
         this.address = address;
     }
 
-    public String getCity() { return city; }
+    public String getCity() {
+        return city;
+    }
 
-    public void setCity(String city) { this.city = city; }
+    public void setCity(String city) {
+        this.city = city;
+    }
 
     public Boolean getDeleted() {
         return deleted;

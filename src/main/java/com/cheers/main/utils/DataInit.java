@@ -120,6 +120,7 @@ public class DataInit implements CommandLineRunner {
         user.setPassword("123");
         user.setBirthday(new Date());
         user.setAvatar(null);
+        user.setNumOfEvents(0);
         dbManager.getLoginService().saveUser(user);
         return user;
     }
